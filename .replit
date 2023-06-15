@@ -1,4 +1,7 @@
-run = "cowsay Configure me!"
+run = "gcc"
 
 [nix]
 channel = "stable-22_11"
+
+[deployment]
+run = ["sh", "-c", "gcc"]
