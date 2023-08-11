@@ -10,5 +10,5 @@ typedef struct  {
   int matricula;                
   char sexo;                    
   char cpf[11];                 
-  DataNascimento dataNascimento;
+  Data_nascimento dataNascimento;
 } Professor;

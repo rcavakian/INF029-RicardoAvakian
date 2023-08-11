@@ -8,4 +8,4 @@ typedef struct {
   int dia;
   int mes;
   int ano;
-} DataNascimento;
+} Data_nascimento;

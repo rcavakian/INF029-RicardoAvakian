@@ -38,7 +38,7 @@ int main() {
       break;
     }
 
-  } while (opcao == 4);
+  } while (opcao != 4);
   
 
   return 0;
