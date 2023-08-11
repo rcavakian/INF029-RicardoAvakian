@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include "aluno.h"
+#include "data_nascimento.h"
+#include "professor.h"
+#include "disciplina.h"
+
 #define TAM_alunos 3
 
 int main() {
