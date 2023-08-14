@@ -1,8 +1,5 @@
-#ifndef PROFESSOR_H
-#define PROFESSOR_H
 
-
-#include "data_nascimento.h"
+#include "data_nascimento.c"
 
 /**
  * @brief Uma estrutura (struct) utilizado para efetuar cadastro de professores da escola.  
@@ -17,4 +14,3 @@ typedef struct  {
   Data_nascimento dataNascimento;
 } Professor;
 
-#endif

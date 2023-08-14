@@ -1,5 +1,4 @@
-#ifndef DATA_NASCIMENTO_H
-#define DATA_NASCIMENTO_H
+#include "data_nascimento.h"
 
 /**
  * @brief Uma estrutura (struct) utilizada para efetuar cadastro da data de nascimento.  
@@ -12,5 +11,3 @@ typedef struct {
   int mes;
   int ano;
 } Data_nascimento;
-
-#endif

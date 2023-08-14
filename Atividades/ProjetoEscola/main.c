@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "aluno.h"
-#include "data_nascimento.h"
-#include "professor.h"
-#include "disciplina.h"
+#include "aluno.c"
+#include "data_nascimento.c"
+#include "professor.c"
+#include "disciplina.c"
 
 #define TAM_alunos 3
 
