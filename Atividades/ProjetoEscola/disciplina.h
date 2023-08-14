@@ -1,17 +1,10 @@
-#ifndef PROFESSOR_H
-#define PROFESSOR_H
+#ifndef DISCIPLINA_H
+#define DISCIPLINA_H
 
-/*
-Cadastro de Disciplinas (Nome, Código, Semestre, Professor)
-◦ Inserir/Excluir aluno de uma disciplina
-*/
 #include "professor.h"
 #include "aluno.h"
 #define TAM_matriculados 3
 
-
-void incluirAluno(Aluno aluno) {
-}
 
 /**
 * @brief Uma estrutura (struct) para cadastro de disciplinas.
@@ -25,5 +18,8 @@ typedef struct {
     Professor professor;
     Aluno alunosMatriculados[TAM_matriculados];
 }Disciplina;
+
+// void incluirAluno(Aluno aluno) {
+// }
 
 #endif

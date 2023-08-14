@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "aluno.c"
-#include "data_nascimento.c"
-#include "professor.c"
-#include "disciplina.c"
+#include "aluno.h"
+#include "data_nascimento.h"
+#include "professor.h"
+#include "disciplina.h"
 
 #define TAM_alunos 3
 
@@ -17,6 +17,7 @@ int main() {
     printf("2 - Professor\n");
     printf("3 - Disciplina\n");
     printf("4 - Sair\n");
+    printf("Opção: ");
     scanf("%d", &opcao);
 
     switch (opcao)

@@ -9,7 +9,7 @@
  * 
  * Esta estrutura contém os seguintes campos: nome, matricula, sexo, CPF e data de nascimento.
  */ 
-typedef struct  {
+typedef struct {
   char nome[40];                
   int matricula;                
   char sexo;                    
