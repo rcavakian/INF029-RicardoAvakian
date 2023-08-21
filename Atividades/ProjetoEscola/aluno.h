@@ -6,13 +6,15 @@
 /**
  * @brief Uma estrutura (struct) utilizado para efetuar cadastro de alunos da escola.  
  * 
- * Esta estrutura contém os seguintes campos: nome, matricula, sexo, CPF e data de nascimento.
+ * Esta estrutura contém os seguintes campos: nome, matricula, sexo, CPF, data de nascimento e ativo. 
+ * Campo 'ativo' valor '1' para aluno ativo e '0' para aluno inativo.
  */ 
 typedef struct {
   char nome[40];                
   int matricula;                
   char sexo;                    
-  char cpf[11];                 
+  char cpf[11]; 
+  int ativo;                
   Data_nascimento dataNascimento;
 } Aluno;
 
