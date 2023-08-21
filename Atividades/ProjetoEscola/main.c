@@ -56,8 +56,8 @@ int main() {
           printf("\n!\tLista de alunos vazia\t!\n");
         } else {
           for (int i = 0; i < contadorAlunos; i++) {
-            printf("%d - Matricula: %d\n", i+1, listaAlunos[i]);
-          }
+            printf("%dª - Matricula: %d\n", i+1, listaAlunos[i]);
+          } 
         }
         break;
       case 3:
