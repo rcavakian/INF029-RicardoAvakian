@@ -23,6 +23,8 @@ int main() {
     scanf("%d", &opcao);
 
     switch (opcao) {
+      int matricula;
+      int matricula_localizada = 0;
     case 1:
       printf("\n**\tMódulo Aluno\t**\n");
       int opcaoAluno;
@@ -36,14 +38,14 @@ int main() {
         scanf("%d", &opcaoAluno);
 
         switch (opcaoAluno) {
-      case 1:
+        case 1:
         printf("\n1 - Cadastro de Aluno\n");
         if (contadorAlunos == TAM_alunos) {
           printf("\n!! Lista de alunos CHEIA !!\n");
         }
         else {
           printf("Digite a matricula do aluno: ");
-          int matricula;
+          // int matricula;
           scanf("%d", &matricula);
           if (matricula <= 0) {
             printf("\n\t!! Matricula do aluno INVALIDA !!\n");
@@ -70,13 +72,36 @@ int main() {
         break;
       case 3:
         printf("\n3 - Atualização de Aluno\n\n");
+        printf("Digite a matricula do aluno a ser atualizado: ");
+        // int matricula;
+        // int matricula_localizada = 0;
+        scanf("%d", &matricula);
+        if (matricula <= 0) {
+          printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
+          break;
+        }
+        else {
+           for (int i = 0; i < contadorAlunos; i++) {
+              if (matricula == listaAlunos[i].matricula){
+                printf("\nDigite a NOVA matrícula: ");
+                scanf("%d", &matricula);
+                listaAlunos[i].matricula = matricula;
+                matricula_localizada = 1;
+                break;
+              }
+            }
+            if (matricula_localizada)
+              printf("\nAluno ATUALIZADO com SUCESSO!\n");
+            else 
+              printf("\nAluno NÃO localizado!\n");
+        }
         break;
       case 4:
         printf("\n4 - Exclusão de Aluno\n\n");
-        printf("Digite a matricula do aluno: ");
-          int matricula;
+        printf("Digite a matricula do aluno a ser excluído: ");
+          // int matricula;
           scanf("%d", &matricula);
-          int matricula_localizada = 0;
+          // int matricula_localizada = 0;
           if (matricula <= 0) {
             printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
             break;
