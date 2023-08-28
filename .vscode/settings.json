@@ -23,6 +23,8 @@
         "*.bms": "hlasm",
         "*.rex": "rexx",
         "*.rexx": "rexx",
-        "data_nascimento.h": "c"
+        "data_nascimento.h": "c",
+        "professor.h": "c",
+        "aluno.h": "c"
     }
 }

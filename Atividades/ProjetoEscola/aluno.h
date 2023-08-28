@@ -14,9 +14,11 @@ typedef struct {
   int matricula;                
   char sexo;                    
   char cpf[11]; 
-  int ativo;                
   Data_nascimento dataNascimento;
 } Aluno;
+
+// void imprime_aluno(Aluno aluno);
+// int gerar_matricula();
 
 #endif 
 

@@ -3,25 +3,22 @@
 #include "data_nascimento.h"
 #include "professor.h"
 #include "disciplina.h"
+#include "menus.h"
 
-#define TAM_alunos 3
+#define TAM_ALUNOS 3
+#define CADASTRO_SUCESSO -1
+#define CADASTRO_NAO_REALIZADO -2
+#define MATRICULA_INVALIDA -3
+
 
 int main() {
 
-  Aluno listaAlunos[TAM_alunos];
+  Aluno listaAlunos[TAM_ALUNOS];
   int contadorAlunos = 0;
   int opcao;
-
   printf("\n**\tProjeto Escola\t**\n\n");
   do {
-    printf("\n # MENU PRINCIPAL # \n\n");
-    printf("1 - Aluno\n");
-    printf("2 - Professor\n");
-    printf("3 - Disciplina\n");
-    printf("4 - Sair\n");
-    printf("\nOpção: ");
-    scanf("%d", &opcao);
-
+    opcao = menu_principal();
     switch (opcao) {
       int matricula;
       int matricula_localizada = 0;
@@ -29,44 +26,46 @@ int main() {
       printf("\n**\tMódulo Aluno\t**\n");
       int opcaoAluno;
       do {
-        printf("\n1 - Cadastrar Aluno\n");
-        printf("2 - Listar Aluno\n");
-        printf("3 - Atualizar Aluno\n");
-        printf("4 - Excluir Aluno\n");
-        printf("5 - Voltar MENU anterior\n");
-        printf("\nOpção: "); 
-        scanf("%d", &opcaoAluno);
-
+        opcaoAluno = menu_aluno();
         switch (opcaoAluno) {
+          int resposta_cadastro;
         case 1:
-        printf("\n1 - Cadastro de Aluno\n");
-        if (contadorAlunos == TAM_alunos) {
-          printf("\n!! Lista de alunos CHEIA !!\n");
-        }
-        else {
-          printf("Digite a matricula do aluno: ");
-          // int matricula;
-          scanf("%d", &matricula);
-          if (matricula <= 0) {
+          resposta_cadastro = cadastrar_aluno(listaAlunos, contadorAlunos);
+          if (resposta_cadastro == CADASTRO_NAO_REALIZADO) {
+            printf("\n!! Lista de alunos CHEIA !!\n");
+          }
+          else if (resposta_cadastro == MATRICULA_INVALIDA) {
             printf("\n\t!! Matricula do aluno INVALIDA !!\n");
-            break;
           }
           else {
-            listaAlunos[contadorAlunos].matricula = matricula;
-            listaAlunos[contadorAlunos].ativo = 1;
-            printf("\nAluno matrícula %d cadastrado com sucesso!\n", listaAlunos[contadorAlunos].matricula);
             contadorAlunos++;
           }
-        }
-        break;
+        // printf("\n1 - Cadastro de Aluno\n");
+        // if (contadorAlunos == TAM_ALUNOS) {
+        //   printf("\n!! Lista de alunos CHEIA !!\n");
+        // }
+        // else {
+        //   printf("Digite a matricula do aluno: ");
+        //   // int matricula;
+        //   scanf("%d", &matricula);
+        //   if (matricula <= 0) {
+        //     printf("\n\t!! Matricula do aluno INVALIDA !!\n");
+        //     break;
+        //   }
+        //   else {
+        //     listaAlunos[contadorAlunos].matricula = matricula;
+        //     printf("\nAluno matrícula %d cadastrado com sucesso!\n", listaAlunos[contadorAlunos].matricula);
+        //     contadorAlunos++;
+        //   }
+        // }
+          break;
       case 2:
         printf("\n2 - Listar Alunos\n\n");
         if (contadorAlunos == 0) {
           printf("\n!\tLista de alunos VAZIA\t!\n");
         } else {
           for (int i = 0; i < contadorAlunos; i++) {
-            if (listaAlunos[i].ativo)
-              printf("%dª - Matricula: %d\n", i+1, listaAlunos[i].matricula);
+            printf("%dª - Matricula: %d\n", i+1, listaAlunos[i].matricula);
           } 
         }
         break;
@@ -109,12 +108,10 @@ int main() {
           else {
             for (int i = 0; i < contadorAlunos; i++) {
               if (matricula == listaAlunos[i].matricula) {
-                listaAlunos[i].ativo = 0;
                 matricula_localizada = 1;
                 for (int j = i; j < contadorAlunos - 1; j++) {
                   listaAlunos[j].matricula = listaAlunos[j + 1].matricula;
                   listaAlunos[j].sexo = listaAlunos[j + 1].sexo;
-                  listaAlunos[j].ativo = listaAlunos[j + 1].ativo;
                 }
                 contadorAlunos--;
                 break;
@@ -137,8 +134,6 @@ int main() {
         break;
       }
       } while (opcaoAluno != 5);
-
-      
       break;
     case 2:
       printf("\n**\tMódulo Professor\t**\n\n");
