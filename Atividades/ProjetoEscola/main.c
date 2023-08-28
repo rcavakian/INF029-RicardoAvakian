@@ -9,6 +9,8 @@
 #define CADASTRO_SUCESSO -1
 #define CADASTRO_NAO_REALIZADO -2
 #define MATRICULA_INVALIDA -3
+#define MATRICULA_NAO_LOCALIZADA -4
+#define ATUALIZACAO_SUCESSO -5
 
 
 int main() {
@@ -28,72 +30,84 @@ int main() {
       do {
         opcaoAluno = menu_aluno();
         switch (opcaoAluno) {
-          int resposta_cadastro;
+          int resposta_retorno;
         case 1:
-          resposta_cadastro = cadastrar_aluno(listaAlunos, contadorAlunos);
-          if (resposta_cadastro == CADASTRO_NAO_REALIZADO) {
+          resposta_retorno = cadastrar_aluno(listaAlunos, contadorAlunos);
+          if (resposta_retorno == CADASTRO_NAO_REALIZADO) {
             printf("\n!! Lista de alunos CHEIA !!\n");
           }
-          else if (resposta_cadastro == MATRICULA_INVALIDA) {
+          else if (resposta_retorno == MATRICULA_INVALIDA) {
             printf("\n\t!! Matricula do aluno INVALIDA !!\n");
           }
           else {
             contadorAlunos++;
           }
-        // printf("\n1 - Cadastro de Aluno\n");
-        // if (contadorAlunos == TAM_ALUNOS) {
-        //   printf("\n!! Lista de alunos CHEIA !!\n");
-        // }
-        // else {
-        //   printf("Digite a matricula do aluno: ");
-        //   // int matricula;
-        //   scanf("%d", &matricula);
-        //   if (matricula <= 0) {
-        //     printf("\n\t!! Matricula do aluno INVALIDA !!\n");
-        //     break;
-        //   }
-        //   else {
-        //     listaAlunos[contadorAlunos].matricula = matricula;
-        //     printf("\nAluno matrícula %d cadastrado com sucesso!\n", listaAlunos[contadorAlunos].matricula);
-        //     contadorAlunos++;
-        //   }
-        // }
+          // printf("\n1 - Cadastro de Aluno\n");
+          // if (contadorAlunos == TAM_ALUNOS) {
+          //   printf("\n!! Lista de alunos CHEIA !!\n");
+          // }
+          // else {
+          //   printf("Digite a matricula do aluno: ");
+          //   // int matricula;
+          //   scanf("%d", &matricula);
+          //   if (matricula <= 0) {
+          //     printf("\n\t!! Matricula do aluno INVALIDA !!\n");
+          //     break;
+          //   }
+          //   else {
+          //     listaAlunos[contadorAlunos].matricula = matricula;
+          //     printf("\nAluno matrícula %d cadastrado com sucesso!\n", listaAlunos[contadorAlunos].matricula);
+          //     contadorAlunos++;
+          //   }
+          // }
           break;
-      case 2:
-        printf("\n2 - Listar Alunos\n\n");
-        if (contadorAlunos == 0) {
-          printf("\n!\tLista de alunos VAZIA\t!\n");
-        } else {
-          for (int i = 0; i < contadorAlunos; i++) {
-            printf("%dª - Matricula: %d\n", i+1, listaAlunos[i].matricula);
+        case 2:
+          printf("\n2 - Listar Alunos\n\n");
+          if (contadorAlunos == 0) {
+            printf("\n!\tLista de alunos VAZIA\t!\n");
           } 
-        }
-        break;
+          else {
+            for (int i = 0; i < contadorAlunos; i++) {
+              printf("%dª - Matricula: %d\n", i+1, listaAlunos[i].matricula);
+            }  
+          }
+          break;
       case 3:
-        printf("\n3 - Atualização de Aluno\n\n");
-        printf("Digite a matricula do aluno a ser atualizado: ");
-        // int matricula;
-        // int matricula_localizada = 0;
-        scanf("%d", &matricula);
-        if (matricula <= 0) {
+        resposta_retorno = atualizar_aluno(listaAlunos, contadorAlunos);
+        if (resposta_retorno == MATRICULA_INVALIDA) {
           printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
           break;
         }
-        else {
-           for (int i = 0; i < contadorAlunos; i++) {
-              if (matricula == listaAlunos[i].matricula){
-                printf("\nDigite a NOVA matrícula: ");
-                scanf("%d", &matricula);
-                listaAlunos[i].matricula = matricula;
-                matricula_localizada = 1;
-                break;
-              }
-            }
-            if (matricula_localizada)
-              printf("\nAluno ATUALIZADO com SUCESSO!\n");
-            else 
-              printf("\nAluno NÃO localizado!\n");
+        else if (resposta_retorno == ATUALIZACAO_SUCESSO) {
+          printf("\nAluno ATUALIZADO com SUCESSO!\n");
+          break;
         }
+        else {
+          printf("\n!!\tAluno NÃO localizado\t!!\n");
+          break;
+        }
+        // printf("\n3 - Atualização de Aluno\n\n");
+        // printf("Digite a matricula do aluno a ser atualizado: ");
+        // scanf("%d", &matricula);
+        // if (matricula <= 0) {
+        //   printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
+        //   break;
+        // }
+        // else {
+        //    for (int i = 0; i < contadorAlunos; i++) {
+        //       if (matricula == listaAlunos[i].matricula){
+        //         printf("\nDigite a NOVA matrícula: ");
+        //         scanf("%d", &matricula);
+        //         listaAlunos[i].matricula = matricula;
+        //         matricula_localizada = 1;
+        //         break;
+        //       }
+        //     }
+        //     if (matricula_localizada)
+        //       printf("\nAluno ATUALIZADO com SUCESSO!\n");
+        //     else 
+        //       printf("\nAluno NÃO localizado!\n");
+        // }
         break;
       case 4:
         printf("\n4 - Exclusão de Aluno\n\n");
