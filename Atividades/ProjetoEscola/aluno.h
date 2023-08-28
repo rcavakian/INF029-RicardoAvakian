@@ -17,9 +17,6 @@ typedef struct {
   Data_nascimento dataNascimento;
 } Aluno;
 
-// void imprime_aluno(Aluno aluno);
-// int gerar_matricula();
-
 #endif 
 
 

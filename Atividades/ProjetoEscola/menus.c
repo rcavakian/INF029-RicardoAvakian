@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "aluno.h"
 #include "menus.h"
 
@@ -10,6 +12,19 @@
 #define ATUALIZACAO_SUCESSO -5
 #define EXCLUSAO_SUCESSO -6
 
+/// @brief Função para ler uma string 
+/// @param buffer variavel onde string deve ser armazenada
+/// @param length tamano da string
+void ler_texto(char *buffer, int length) {
+	fgets(buffer, length, stdin);
+	strtok(buffer, "\n");
+}
+
+/// @brief Função para limpar o buffer de entrada
+void limpar_buffer() {
+	char c;
+	while ((c = getchar()) != '\n' && c != EOF) {}
+}
 
 /// @brief Menu principal do sistema do Projeto Escola
 /// @return tipo int para utilizar no Switch
@@ -45,25 +60,55 @@ int menu_aluno(){
 /// @return 
 int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
     printf("\n1 - Cadastro de Aluno\n");
+    Aluno aluno;
         if (contadorAlunos == TAM_ALUNOS) {
           return CADASTRO_NAO_REALIZADO;
         }
         else {
+          limpar_buffer();
+          printf("Digite nome do aluno: ");
+          ler_texto(aluno.nome, sizeof(40));
+          aluno.nome[strcspn(aluno.nome, "\n")] = '\0';
+
           printf("Digite a matricula do aluno: ");
-          int matricula;
-          scanf("%d", &matricula);
-          if (matricula <= 0) {
-            return MATRICULA_INVALIDA;
+          limpar_buffer();
+          scanf("%d", &aluno.matricula);
+
+          printf("Digite o sexo do aluno: ");
+          scanf("%c", &aluno.sexo);
+          limpar_buffer();
+
+
+          printf("Digite o DIA de nascimento do aluno: ");
+          scanf("%d", &aluno.dataNascimento.dia);
+
+          printf("Digite o MÊS de nascimento do aluno: ");
+          scanf("%d", &aluno.dataNascimento.mes);
+          
+          printf("Digite o ANO de nascimento do aluno: ");
+          scanf("%d", &aluno.dataNascimento.ano);
+          
+          printf("Digite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
+          fgets(aluno.cpf, sizeof(aluno.cpf), stdin);
+          limpar_buffer();
+
+          if (aluno.matricula <= 0) {
             return MATRICULA_INVALIDA;
           }
           else {
-            listaAlunos[contadorAlunos].matricula = matricula;
+            listaAlunos[contadorAlunos] = aluno;
             printf("\nAluno matrícula %d cadastrado com sucesso!\n", listaAlunos[contadorAlunos].matricula);
             return CADASTRO_SUCESSO;
           }
 
         }
 }
+
+int menu_listar_alunos(Aluno listarAlunos[], int contadorAlunos) {
+  //todo: implementar verificacao se a lista esta vazia ou nao, na sequencia : ListarAlunosporsexo(Masculino/Feminino) ListarAlunosordenadosporNome ListarAlunosordenadospordatadenascimento
+  return 1;
+}
+
 
 int atualizar_aluno(Aluno listaAlunos[], int contadorAlunos) {
   int matricula;
@@ -113,7 +158,6 @@ int excluir_aluno(Aluno listaAlunos[], int contadorAlunos) {
           listaAlunos[j].matricula = listaAlunos[j + 1].matricula;
           listaAlunos[j].sexo = listaAlunos[j + 1].sexo;
         }
-        contadorAlunos--;
         break;
       }
     }
@@ -134,3 +178,4 @@ void menu_professor() {
 void menu_discplina() {
 
 }
+

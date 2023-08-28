@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "aluno.h"
 #include "data_nascimento.h"
 #include "professor.h"
