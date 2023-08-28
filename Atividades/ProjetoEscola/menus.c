@@ -8,6 +8,7 @@
 #define MATRICULA_INVALIDA -3
 #define MATRICULA_NAO_LOCALIZADA -4
 #define ATUALIZACAO_SUCESSO -5
+#define EXCLUSAO_SUCESSO -6
 
 
 /// @brief Menu principal do sistema do Projeto Escola
@@ -65,33 +66,66 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
 }
 
 int atualizar_aluno(Aluno listaAlunos[], int contadorAlunos) {
-        int matricula;
-        int matricula_localizada = 0;
-        printf("\n3 - Atualização de Aluno\n\n");
-        printf("Digite a matricula do aluno a ser atualizado: ");
+  int matricula;
+  int matricula_localizada = 0;
+  printf("\n3 - Atualização de Aluno\n\n");
+  printf("Digite a matricula do aluno a ser atualizado: ");
 
+  scanf("%d", &matricula);
+  if (matricula <= 0) {
+    return MATRICULA_INVALIDA;
+  }
+  else {
+    for (int i = 0; i < contadorAlunos; i++)
+    {
+      if (matricula == listaAlunos[i].matricula)
+      {
+        printf("\nDigite a NOVA matrícula: ");
         scanf("%d", &matricula);
-        if (matricula <= 0) {
-          return MATRICULA_INVALIDA;
+        listaAlunos[i].matricula = matricula;
+        matricula_localizada = 1;
+        break;
+      }
+    }
+    if (matricula_localizada)
+      return ATUALIZACAO_SUCESSO;
+    else {
+      return MATRICULA_NAO_LOCALIZADA;
+    }
+  }
+}
+
+int excluir_aluno(Aluno listaAlunos[], int contadorAlunos) {
+  printf("\n4 - Exclusão de Aluno\n\n");
+  printf("Digite a matricula do aluno a ser excluído: ");
+  int matricula;
+  scanf("%d", &matricula);
+  int matricula_localizada = 0;
+  if (matricula <= 0) {
+    // colocar essa mensagem no main.c: printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
+    return MATRICULA_INVALIDA;
+  }
+  else {
+    for (int i = 0; i < contadorAlunos; i++) {
+      if (matricula == listaAlunos[i].matricula) {
+        matricula_localizada = 1;
+        for (int j = i; j < contadorAlunos - 1; j++) {
+          listaAlunos[j].matricula = listaAlunos[j + 1].matricula;
+          listaAlunos[j].sexo = listaAlunos[j + 1].sexo;
         }
-        else {
-          for (int i = 0; i < contadorAlunos; i++)
-          {
-            if (matricula == listaAlunos[i].matricula)
-            {
-              printf("\nDigite a NOVA matrícula: ");
-              scanf("%d", &matricula);
-              listaAlunos[i].matricula = matricula;
-              matricula_localizada = 1;
-              break;
-            }
-          }
-          if (matricula_localizada)
-            return ATUALIZACAO_SUCESSO;
-          else {
-            return MATRICULA_NAO_LOCALIZADA;
-          }
-        }
+        contadorAlunos--;
+        break;
+      }
+    }
+    if (matricula_localizada) {
+      // colocar essa mensagem no main.c printf("\n!!\tAluno exlcuido com SUCESSO\t!!\n");
+      return EXCLUSAO_SUCESSO;
+    }
+    else {
+      // colocar essa mensagem no main.c printf("\n!!\tMatricula não localizada\t!!\n");
+      return MATRICULA_NAO_LOCALIZADA;
+    }
+  }
 }
 
 void menu_professor() {

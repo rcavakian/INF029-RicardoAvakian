@@ -11,6 +11,8 @@
 #define MATRICULA_INVALIDA -3
 #define MATRICULA_NAO_LOCALIZADA -4
 #define ATUALIZACAO_SUCESSO -5
+#define EXCLUSAO_SUCESSO -6
+
 
 
 int main() {
@@ -110,35 +112,43 @@ int main() {
         // }
         break;
       case 4:
-        printf("\n4 - Exclusão de Aluno\n\n");
-        printf("Digite a matricula do aluno a ser excluído: ");
-          // int matricula;
-          scanf("%d", &matricula);
-          // int matricula_localizada = 0;
-          if (matricula <= 0) {
-            printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
-            break;
-          }
-          else {
-            for (int i = 0; i < contadorAlunos; i++) {
-              if (matricula == listaAlunos[i].matricula) {
-                matricula_localizada = 1;
-                for (int j = i; j < contadorAlunos - 1; j++) {
-                  listaAlunos[j].matricula = listaAlunos[j + 1].matricula;
-                  listaAlunos[j].sexo = listaAlunos[j + 1].sexo;
-                }
-                contadorAlunos--;
-                break;
-              }
-            }
-            if (matricula_localizada) {
-              printf("\n!!\tAluno exlcuido com SUCESSO\t!!\n");
-            }
-            else {
-              printf("\n!!\tMatricula não localizada\t!!\n");
-            }
-          }
-
+        resposta_retorno = excluir_aluno(listaAlunos, contadorAlunos);
+        if (resposta_retorno == MATRICULA_INVALIDA)
+          printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
+        else if (resposta_retorno == EXCLUSAO_SUCESSO) {
+          contadorAlunos--;
+          printf("\n!!\tAluno exlcuido com SUCESSO\t!!\n");
+        }
+        else 
+          printf("\n!!\tMatricula não localizada\t!!\n");
+        // printf("\n4 - Exclusão de Aluno\n\n");
+        // printf("Digite a matricula do aluno a ser excluído: ");
+        //   // int matricula;
+        //   scanf("%d", &matricula);
+        //   // int matricula_localizada = 0;
+        //   if (matricula <= 0) {
+        //     printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
+        //     break;
+        //   }
+        //   else {
+        //     for (int i = 0; i < contadorAlunos; i++) {
+        //       if (matricula == listaAlunos[i].matricula) {
+        //         matricula_localizada = 1;
+        //         for (int j = i; j < contadorAlunos - 1; j++) {
+        //           listaAlunos[j].matricula = listaAlunos[j + 1].matricula;
+        //           listaAlunos[j].sexo = listaAlunos[j + 1].sexo;
+        //         }
+        //         contadorAlunos--;
+        //         break;
+        //       }
+        //     }
+        //     if (matricula_localizada) {
+        //       printf("\n!!\tAluno exlcuido com SUCESSO\t!!\n");
+        //     }
+        //     else {
+        //       printf("\n!!\tMatricula não localizada\t!!\n");
+        //     }
+        //   }
         break;
       case 5:
         printf("\n");
