@@ -11,7 +11,7 @@
 * 
 * Esta estrutura contém os seguintes campos: nome, código, semestre e professor.
 */ 
-typedef struct {
+typedef struct Disciplina{
     char nome[100];
     int codigo;
     int semestre;

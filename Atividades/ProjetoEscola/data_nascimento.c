@@ -1,8 +1,13 @@
 #include <string.h>
+#include <time.h>
 #include "data_nascimento.h"
-#define ANO_MINIMO 1900
+#define ANO_MINIMO 1970
 #define ANO_MAXIMO 2023
 
+
+/// @brief Função que verifica se a data de nascimento informada é valida 
+/// @param char data[] 
+/// @return 
 int valida_data(char *data) {
   int dia, mes, ano;
 
@@ -11,9 +16,9 @@ int valida_data(char *data) {
     return 1;
   }
 
-  // Verifica se a string contém apenas números
+  // Verifica se a string contém apenas números e se as posições 2 e 5 são "-" 
   for (int i = 0; i < strlen(data); i++) {
-    if (data[2] == '-' || data[5] == '-') {
+    if (data[2] == '/' || data[5] == '/') {
         break;
     }
     if (data[i] < '0' || data[i] > '9')
@@ -83,13 +88,31 @@ int valida_data(char *data) {
 }
 
 /// @brief Função para verificar se um ano é bissexto
-/// @param ano 
+/// @param anoBissexto do tipo int
 /// @return 1 para true e 0 para false
-int validaAnoBissexto(int ano) {
-  if (ano % 400 == 0 || ano % 4 == 0 && ano % 100 != 0) {
+int validaAnoBissexto(int anoBissexto) {
+  if (anoBissexto % 400 == 0 || anoBissexto % 4 == 0 && anoBissexto % 100 != 0) {
       return 1;
   }
   else {
     return 0;
   }
+}
+
+/// @brief Função para converter un char data[] "01/01/1970" em segundos
+/// @param text do tipo char []
+/// @return tipo tm da biblioteca time.h
+time_t texto_para_tempo(char * text){
+    struct tm tmp = {0};
+    strptime(text,"%d/%m/%Y",&tmp);
+    return mktime(&tmp);
+}
+
+/// @brief Função que converte segundos (long long time) em char "01/01/1970"
+/// @param time do tipo time_t 
+/// @param output do tipo char [] 
+/// @param size do tipo int
+void tempo_para_texto(time_t * time, char * output, int size){
+    struct tm * tmp = localtime(time);
+    strftime(output,size, "%d/%m/%Y", tmp);
 }

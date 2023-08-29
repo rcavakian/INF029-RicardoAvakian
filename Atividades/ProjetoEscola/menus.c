@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "aluno.h"
 #include "menus.h"
+#include "data_nascimento.h"
 
 #define TAM_ALUNOS 3
 #define CADASTRO_SUCESSO -1
@@ -65,6 +66,9 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
           return CADASTRO_NAO_REALIZADO;
         }
         else {
+          char data[11];
+          int validacaoData;
+
           limpar_buffer();
           printf("Digite nome do aluno: ");
           ler_texto(aluno.nome, sizeof(40));
@@ -79,14 +83,27 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
           limpar_buffer();
 
 
-          printf("Digite o DIA de nascimento do aluno: ");
-          scanf("%d", &aluno.dataNascimento.dia);
-
-          printf("Digite o MÊS de nascimento do aluno: ");
-          scanf("%d", &aluno.dataNascimento.mes);
           
-          printf("Digite o ANO de nascimento do aluno: ");
-          scanf("%d", &aluno.dataNascimento.ano);
+          do {
+            printf("Digite a data de nascimento do aluno no formato dd/mm/aaaa (d = dia; m = mes; a = ano): ");
+            ler_texto(data, sizeof(data));
+            validacaoData = valida_data(data);
+            if (validacaoData != 0) {
+              printf("!!\tData INVALIDA\t!!\n");
+            }
+            limpar_buffer();
+          } while (validacaoData != 0);
+          aluno.dataNascimento = texto_para_tempo(data);
+
+
+          // printf("Digite o DIA de nascimento do aluno: ");
+          // scanf("%d", &aluno.dataNascimento.dia);
+
+          // printf("Digite o MÊS de nascimento do aluno: ");
+          // scanf("%d", &aluno.dataNascimento.mes);
+          
+          // printf("Digite o ANO de nascimento do aluno: ");
+          // scanf("%d", &aluno.dataNascimento.ano);
           
           printf("Digite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
           fgets(aluno.cpf, sizeof(aluno.cpf), stdin);

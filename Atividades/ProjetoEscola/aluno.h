@@ -10,7 +10,7 @@
  * Esta estrutura contém os seguintes campos: nome, matricula, sexo, CPF, data de nascimento e ativo. 
  * Campo 'ativo' valor '1' para aluno ativo e '0' para aluno inativo.
  */ 
-typedef struct {
+typedef struct Aluno {
   char nome[40];                
   int matricula;                
   char sexo;                    
