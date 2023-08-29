@@ -1,7 +1,8 @@
 #ifndef ALUNO_H
 #define ALUNO_H
 
-#include "data_nascimento.h"
+#include <time.h>
+
 
 /**
  * @brief Uma estrutura (struct) utilizado para efetuar cadastro de alunos da escola.  
@@ -14,7 +15,7 @@ typedef struct {
   int matricula;                
   char sexo;                    
   char cpf[11]; 
-  Data_nascimento dataNascimento;
+  time_t dataNascimento;
 } Aluno;
 
 #endif 
