@@ -4,8 +4,8 @@
 Cadastro de Disciplinas (Nome, Código, Semestre, Professor)
 ◦ Inserir/Excluir aluno de uma disciplina
 */
-#include "professor.c"
-#include "aluno.c"
+#include "professor.h"
+#include "aluno.h"
 #define TAM_matriculados 3
 
 

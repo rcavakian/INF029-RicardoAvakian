@@ -5,6 +5,7 @@
 #include "professor.h"
 #include "disciplina.h"
 #include "menus.h"
+#include "cpf.h"
 
 #define TAM_ALUNOS 3
 #define CADASTRO_SUCESSO -1
@@ -13,8 +14,7 @@
 #define MATRICULA_NAO_LOCALIZADA -4
 #define ATUALIZACAO_SUCESSO -5
 #define EXCLUSAO_SUCESSO -6
-
-
+#define LISTA_VAZIA -7
 
 int main() {
 
@@ -45,34 +45,15 @@ int main() {
           else {
             contadorAlunos++;
           }
-          // printf("\n1 - Cadastro de Aluno\n");
-          // if (contadorAlunos == TAM_ALUNOS) {
-          //   printf("\n!! Lista de alunos CHEIA !!\n");
-          // }
-          // else {
-          //   printf("Digite a matricula do aluno: ");
-          //   // int matricula;
-          //   scanf("%d", &matricula);
-          //   if (matricula <= 0) {
-          //     printf("\n\t!! Matricula do aluno INVALIDA !!\n");
-          //     break;
-          //   }
-          //   else {
-          //     listaAlunos[contadorAlunos].matricula = matricula;
-          //     printf("\nAluno matrícula %d cadastrado com sucesso!\n", listaAlunos[contadorAlunos].matricula);
-          //     contadorAlunos++;
-          //   }
-          // }
           break;
-        case 2:
+      case 2:
+          resposta_retorno = menu_listar_alunos(listaAlunos, contadorAlunos);
           printf("\n2 - Listar Alunos\n\n");
-          if (contadorAlunos == 0) {
+          if (resposta_retorno == LISTA_VAZIA) {
             printf("\n!\tLista de alunos VAZIA\t!\n");
           } 
           else {
-            for (int i = 0; i < contadorAlunos; i++) {
-              printf("%dª - Matricula: %d\n", i+1, listaAlunos[i].matricula);
-            }  
+            imprimirListaAlunos(listaAlunos, contadorAlunos); 
           }
           break;
       case 3:
@@ -89,28 +70,6 @@ int main() {
           printf("\n!!\tAluno NÃO localizado\t!!\n");
           break;
         }
-        // printf("\n3 - Atualização de Aluno\n\n");
-        // printf("Digite a matricula do aluno a ser atualizado: ");
-        // scanf("%d", &matricula);
-        // if (matricula <= 0) {
-        //   printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
-        //   break;
-        // }
-        // else {
-        //    for (int i = 0; i < contadorAlunos; i++) {
-        //       if (matricula == listaAlunos[i].matricula){
-        //         printf("\nDigite a NOVA matrícula: ");
-        //         scanf("%d", &matricula);
-        //         listaAlunos[i].matricula = matricula;
-        //         matricula_localizada = 1;
-        //         break;
-        //       }
-        //     }
-        //     if (matricula_localizada)
-        //       printf("\nAluno ATUALIZADO com SUCESSO!\n");
-        //     else 
-        //       printf("\nAluno NÃO localizado!\n");
-        // }
         break;
       case 4:
         resposta_retorno = excluir_aluno(listaAlunos, contadorAlunos);
@@ -122,34 +81,6 @@ int main() {
         }
         else 
           printf("\n!!\tMatricula não localizada\t!!\n");
-        // printf("\n4 - Exclusão de Aluno\n\n");
-        // printf("Digite a matricula do aluno a ser excluído: ");
-        //   // int matricula;
-        //   scanf("%d", &matricula);
-        //   // int matricula_localizada = 0;
-        //   if (matricula <= 0) {
-        //     printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
-        //     break;
-        //   }
-        //   else {
-        //     for (int i = 0; i < contadorAlunos; i++) {
-        //       if (matricula == listaAlunos[i].matricula) {
-        //         matricula_localizada = 1;
-        //         for (int j = i; j < contadorAlunos - 1; j++) {
-        //           listaAlunos[j].matricula = listaAlunos[j + 1].matricula;
-        //           listaAlunos[j].sexo = listaAlunos[j + 1].sexo;
-        //         }
-        //         contadorAlunos--;
-        //         break;
-        //       }
-        //     }
-        //     if (matricula_localizada) {
-        //       printf("\n!!\tAluno exlcuido com SUCESSO\t!!\n");
-        //     }
-        //     else {
-        //       printf("\n!!\tMatricula não localizada\t!!\n");
-        //     }
-        //   }
         break;
       case 5:
         printf("\n");

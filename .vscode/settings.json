@@ -26,7 +26,8 @@
         "data_nascimento.h": "c",
         "professor.h": "c",
         "aluno.h": "c",
-        "menus.h": "c"
+        "menus.h": "c",
+        "cpf.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
