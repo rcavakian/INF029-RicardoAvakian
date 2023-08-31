@@ -14,8 +14,8 @@
 #define ATUALIZACAO_SUCESSO -5
 #define EXCLUSAO_SUCESSO -6
 #define LISTA_VAZIA -7
-#define CPF_VALIDO 1
-#define CPF_INVALIDO 0
+#define CPF_VALIDO 11
+#define CPF_INVALIDO 10
 
 
 /// @brief Função para ler uma string 
@@ -26,10 +26,12 @@ void ler_texto(char *buffer, int length) {
 	strtok(buffer, "\n");
 }
 
-/// @brief Função para limpar o buffer de entrada
+// Função que limpa o buffer de entrada
 void limpar_buffer() {
-	char c;
-	while ((c = getchar()) != '\n' && c != EOF) {}
+    int ch;
+    do {
+        ch = fgetc(stdin);
+    } while (ch != EOF && ch != '\n');
 }
 
 /// @brief Menu principal do sistema do Projeto Escola
@@ -72,53 +74,55 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
         }
         else {
           char data_digitada[11];
-          int validacaoData;
-          int validacaoCPF = 1;
+          char cpfDigitado[12];
+          int validacaoData = 1;
+          int validacaoCPF = 0;
 
           limpar_buffer();
-          printf("Digite NOME do aluno: ");
-          fgets(aluno.nome, sizeof(aluno.nome), stdin);
-          aluno.nome[strcspn(aluno.nome, "\n")] = '\0';
+          
+          printf("\nDigite NOME: ");
+          ler_texto(aluno.nome, sizeof(aluno.nome));
+          //aluno.nome[strcspn(aluno.nome, "\n")] = '\0';
 
-          printf("Digite a MATRICULA do aluno: ");
+          printf("\nDigite a MATRICULA: ");
           scanf("%d", &aluno.matricula);
           limpar_buffer();
 
-          printf("Digite o SEXO do aluno: ");
+          printf("\nDigite o SEXO: ");
           scanf("%c", &aluno.sexo);
           limpar_buffer();
-          
-          do {
-            printf("Digite a DATA de NASCIMENTO do aluno no formato dd/mm/aaaa (d = dia; m = mes; a = ano): ");
-            ler_texto(data_digitada, sizeof(data_digitada));
+
+          while (validacaoData != 0) {
+            printf("\nDigite DATA de NASCIMENTO no formato dd/mm/aaaa(d = dia; m = mes; a = ano): ");
+            fgets(data_digitada, 11, stdin);
+            data_digitada[strcspn(data_digitada, "\n")] = '\0';
             validacaoData = valida_data(data_digitada);
             if (validacaoData != 0) {
-              printf("!!\tData INVALIDA\t!!\n");
+              printf("!!\tData INVALIDA  !!");
             }
             limpar_buffer();
-          } while (validacaoData != 0);
+          }
           aluno.dataNascimento = texto_para_tempo(data_digitada);
-          
-          do {
-            printf("Digite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
-            fgets(aluno.cpf, sizeof(aluno.cpf), stdin);
-            // Substitui o ultimo caracter de "\n" para '\0'. 
+
+          while (validacaoCPF != CPF_VALIDO) {
+            printf("\nDigite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
+            fgets(aluno.cpf, 12, stdin);
             aluno.cpf[strcspn(aluno.cpf, "\n")] = '\0';
-            validacaoCPF = validar_cpf(aluno.cpf);
-            if (validacaoCPF != 0) {
-              printf("!!\tCPF INVALIDO\t!!\n");
+            // Verificar se a informacao digitado tem 11 caracteres
+            if (strlen(aluno.cpf) < 11) {
+              //limpar_buffer();
+              printf("!!\tCPF FALTA algarismos !!");
             }
-            limpar_buffer();
-          } while (validacaoCPF != 0);
-          // aluno.cpf = cpf_digitado;
-
-          // printf("Digite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
-          // fgets(aluno.cpf, sizeof(aluno.cpf), stdin);
-          // // Substitui o ultimo caracter de "\n" para '\0'. 
-          // aluno.cpf[strcspn(aluno.cpf, "\n")] = '\0';
-          // validar_cpf(aluno.cpf);
-          // limpar_buffer();
-
+            else {
+              printf("\nPassou if de tamanho de 11 caracteres entrou no else");
+              //limpar_buffer();
+              validacaoCPF = validar_cpf(aluno.cpf);
+              if (validacaoCPF != CPF_VALIDO) {
+                printf("!!\tCPF NAO VALIDADO\t!!");
+              }
+            }
+          } 
+  
           if (aluno.matricula <= 0) {
             return MATRICULA_INVALIDA;
           }
@@ -134,12 +138,11 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
 int menu_listar_alunos(Aluno listaAlunos[], int contadorAlunos){
         printf("\n2 - Listar Alunos\n\n");
         if (contadorAlunos == 0){
-          return LISTA_VAZIA;
           printf("\n!\tLista de alunos VAZIA\t!\n");
+          return LISTA_VAZIA;
         }
         else
-          imprimirListaAlunos(listaAlunos, contadorAlunos);
-        return 1;
+          return 1;
 }
 
 int atualizar_aluno(Aluno listaAlunos[], int contadorAlunos) {
@@ -179,7 +182,6 @@ int excluir_aluno(Aluno listaAlunos[], int contadorAlunos) {
   scanf("%d", &matricula);
   int matricula_localizada = 0;
   if (matricula <= 0) {
-    // colocar essa mensagem no main.c: printf("\n!!\tMatricula do aluno INVALIDA\t!!\n");
     return MATRICULA_INVALIDA;
   }
   else {
@@ -194,11 +196,9 @@ int excluir_aluno(Aluno listaAlunos[], int contadorAlunos) {
       }
     }
     if (matricula_localizada) {
-      // colocar essa mensagem no main.c printf("\n!!\tAluno exlcuido com SUCESSO\t!!\n");
       return EXCLUSAO_SUCESSO;
     }
     else {
-      // colocar essa mensagem no main.c printf("\n!!\tMatricula não localizada\t!!\n");
       return MATRICULA_NAO_LOCALIZADA;
     }
   }

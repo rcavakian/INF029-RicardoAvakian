@@ -48,7 +48,6 @@ int main() {
           break;
       case 2:
           resposta_retorno = menu_listar_alunos(listaAlunos, contadorAlunos);
-          printf("\n2 - Listar Alunos\n\n");
           if (resposta_retorno == LISTA_VAZIA) {
             printf("\n!\tLista de alunos VAZIA\t!\n");
           } 
