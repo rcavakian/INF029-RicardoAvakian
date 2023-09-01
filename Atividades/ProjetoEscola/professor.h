@@ -3,11 +3,7 @@
 
 #include <time.h>
 
-/**
- * @brief Uma estrutura (struct) utilizado para efetuar cadastro de professores da escola.  
- * 
- * Esta estrutura contém os seguintes campos: nome, matricula, sexo, CPF e data de nascimento.
- */ 
+/// @brief Uma estrutura (struct) utilizado para efetuar cadastro de professores da escola. Esta estrutura contém os seguintes campos: nome, matricula, sexo, CPF e data de nascimento.
 typedef struct Professor{
   char nome[40];                
   int matricula;                

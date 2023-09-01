@@ -87,24 +87,21 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
 
           // Cadastrar CPF
           while (validacaoCPF != CPF_VALIDO) {
-            char cpfDigitado[12];
+            //char cpfDigitado[12];
             printf("\nDigite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
-            ler_texto(cpfDigitado, 12);
+            ler_texto(aluno.cpf, 12);
 
             // Verificar se a informacao digitado tem 11 caracteres
-            if (strlen(cpfDigitado) != 11) {
+            if (strlen(aluno.cpf) != 11) {
               printf("!!\tCPF FALTA algarismos !!");
             }
             else {
               // Validar CPF
-              validacaoCPF = validar_cpf(cpfDigitado);
+              validacaoCPF = validar_cpf(aluno.cpf);
               limpar_buffer();
               if (validacaoCPF != CPF_VALIDO) {
                 printf("!!\tCPF NAO VALIDADO\t!!");
                 continue;
-              }
-              else {
-                strcpy(aluno.cpf, cpfDigitado);
               }
             }
           }
