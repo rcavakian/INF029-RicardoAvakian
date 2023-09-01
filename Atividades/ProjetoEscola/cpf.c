@@ -9,10 +9,6 @@
 /// @return 0 para CPF Valido e 1 para CPF Invalido
 int validar_cpf(char cpf[])
 {
-    // Verificar se a informacao digitado tem 11 caracteres
-    //if (strlen(cpf) < 11) {
-      //  return CPF_INVALIDO;
-    //}
 
     /*
     Converter os 11 caracteres em algarismos do tipo int e dividir em 2 grupos: 
@@ -20,12 +16,13 @@ int validar_cpf(char cpf[])
     */ 
     int cpf_numerico_grupo1[9];
     int cpf_numerico_grupo2[2];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 11; i++) {
         if (i < 9) {
-            cpf_numerico_grupo1[i] = cpf[i] - '0';
+            cpf_numerico_grupo1[i] = cpf[i]  - '0';
         }
-        else
-            cpf_numerico_grupo2[i] = cpf[i] - '0';
+        else {
+            cpf_numerico_grupo2[i-9] = cpf[i] - '0';
+        }
     }
 
     /*
@@ -46,11 +43,13 @@ int validar_cpf(char cpf[])
         modulo--;
     }
 
-    primeiro_digito = 11 - (soma % 11) ;
-    if (primeiro_digito > 9) {
+    // Cacular primeiro digito (dezena) do CPF
+    int resto = (soma % 11) ;
+    if (resto < 2) {
         primeiro_digito = 0;
-    }
-
+    } else {
+        primeiro_digito = 11 - resto;
+    }    
     /*
     Fazer o calculo do segundo digito utilizando modulo 
     Calcule o segundo dígito verificador usando o mesmo algoritmo "Módulo 11", 
@@ -59,14 +58,17 @@ int validar_cpf(char cpf[])
     */
     int segundo_digito = 0;
     modulo = 11;
+    soma = 0;
     for (int i = 0; i < 9; i++) {
         soma += (modulo * cpf_numerico_grupo1[i]);
         modulo--;
     }
-    segundo_digito = modulo * primeiro_digito;
-    segundo_digito = 11 - (segundo_digito % 11);
-    if (segundo_digito > 9) {
+    segundo_digito = 2 * primeiro_digito + soma;
+    resto = (segundo_digito % 11);
+    if (resto < 2) {
         segundo_digito = 0;
+    } else {
+        segundo_digito = 11 - resto;
     }
 
     if (primeiro_digito == cpf_numerico_grupo2[0] && segundo_digito == cpf_numerico_grupo2[1]) {
