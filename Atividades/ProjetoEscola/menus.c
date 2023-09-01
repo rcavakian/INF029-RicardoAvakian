@@ -28,7 +28,7 @@ void ler_texto(char *buffer, int length) {
 
 // Função que limpa o buffer de entrada
 void limpar_buffer() {
-    int ch;
+    char ch;
     do {
         ch = fgetc(stdin);
     } while (ch != EOF && ch != '\n');
@@ -73,55 +73,76 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
           return CADASTRO_NAO_REALIZADO;
         }
         else {
-          char data_digitada[11];
-          char cpfDigitado[12];
+          //char data_digitada[11];
+          // char cpfDigitado[12];
           int validacaoData = 1;
           int validacaoCPF = 0;
 
           limpar_buffer();
-          
+
+          // Cadastrar Nome
           printf("\nDigite NOME: ");
           ler_texto(aluno.nome, sizeof(aluno.nome));
           //aluno.nome[strcspn(aluno.nome, "\n")] = '\0';
 
+          // Cadastrar CPF
+          while (validacaoCPF != CPF_VALIDO) {
+            char cpfDigitado[12];
+            printf("\nDigite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
+            ler_texto(cpfDigitado, 12);
+
+            // Verificar se a informacao digitado tem 11 caracteres
+            if (strlen(cpfDigitado) != 11) {
+              printf("!!\tCPF FALTA algarismos !!");
+            }
+            else {
+              // Validar CPF
+              validacaoCPF = validar_cpf(cpfDigitado);
+              limpar_buffer();
+              if (validacaoCPF != CPF_VALIDO) {
+                printf("!!\tCPF NAO VALIDADO\t!!");
+                continue;
+              }
+              else {
+                strcpy(aluno.cpf, cpfDigitado);
+              }
+            }
+          }
+
+          // Cadastrar Matricula
           printf("\nDigite a MATRICULA: ");
           scanf("%d", &aluno.matricula);
           limpar_buffer();
 
+          // Cadastrar Sexo
           printf("\nDigite o SEXO: ");
           scanf("%c", &aluno.sexo);
           limpar_buffer();
 
+          // Cadastrar Data de nascimento
           while (validacaoData != 0) {
+            char data_digitada[11];
             printf("\nDigite DATA de NASCIMENTO no formato dd/mm/aaaa(d = dia; m = mes; a = ano): ");
-            fgets(data_digitada, 11, stdin);
-            data_digitada[strcspn(data_digitada, "\n")] = '\0';
-            validacaoData = valida_data(data_digitada);
-            if (validacaoData != 0) {
-              printf("!!\tData INVALIDA  !!");
-            }
-            limpar_buffer();
-          }
-          aluno.dataNascimento = texto_para_tempo(data_digitada);
+            ler_texto(data_digitada, 11);
 
-          while (validacaoCPF != CPF_VALIDO) {
-            printf("\nDigite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
-            fgets(aluno.cpf, 12, stdin);
-            aluno.cpf[strcspn(aluno.cpf, "\n")] = '\0';
-            // Verificar se a informacao digitado tem 11 caracteres
-            if (strlen(aluno.cpf) < 11) {
-              //limpar_buffer();
-              printf("!!\tCPF FALTA algarismos !!");
+            // Validar o tamanho do char[]
+            if (strlen(data_digitada) != 10) {
+              printf("!!\tData INCOMPLETA!!");
+              continue;
             }
             else {
-              printf("\nPassou if de tamanho de 11 caracteres entrou no else");
-              //limpar_buffer();
-              validacaoCPF = validar_cpf(aluno.cpf);
-              if (validacaoCPF != CPF_VALIDO) {
-                printf("!!\tCPF NAO VALIDADO\t!!");
+              validacaoData = valida_data(data_digitada);
+              // if para caso a data não retorne como não validada volte a pedir nova data
+              if (validacaoData != 0) {
+                limpar_buffer();
+                printf("!!\tData INVALIDA  !!");
+                continue;           
+              }
+              else {
+                aluno.dataNascimento = texto_para_tempo(data_digitada);
               }
             }
-          } 
+          }
   
           if (aluno.matricula <= 0) {
             return MATRICULA_INVALIDA;
@@ -138,7 +159,6 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
 int menu_listar_alunos(Aluno listaAlunos[], int contadorAlunos){
         printf("\n2 - Listar Alunos\n\n");
         if (contadorAlunos == 0){
-          printf("\n!\tLista de alunos VAZIA\t!\n");
           return LISTA_VAZIA;
         }
         else
