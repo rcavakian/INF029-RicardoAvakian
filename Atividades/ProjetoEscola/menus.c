@@ -224,9 +224,7 @@ int excluir_aluno(Aluno listaAlunos[], int contadorAlunos) {
   }
 }
 
-void menu_professor() {
 
-}
 void menu_discplina() {
 
 }
