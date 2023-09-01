@@ -32,7 +32,6 @@ int main() {
     opcao = menu_principal();
     switch (opcao) {
       int matricula;
-      
     case 1:
       printf("\n**\tMódulo Aluno\t**\n");
       int opcaoAluno;
@@ -131,11 +130,11 @@ int main() {
           break;
         }
         else if (resposta_retorno == ATUALIZACAO_SUCESSO) {
-          printf("\Professor ATUALIZADO com SUCESSO!\n");
+          printf("\nProfessor ATUALIZADO com SUCESSO!\n");
           break;
         }
         else {
-          printf("\n!!\Professor NÃO localizado\t!!\n");
+          printf("\n!!\nProfessor NÃO localizado\t!!\n");
           break;
         }
         break;
@@ -156,7 +155,8 @@ int main() {
       default:
         printf("\n!!\tOpção inválida\t!!\n\n");
         break;
-      } while (opcaoProfessor != 5);
+      }
+    } while (opcaoProfessor != 5);
       break;
     case 3:
       printf("\n**\tMódulo Disciplina\t**\n\n");
@@ -167,11 +167,7 @@ int main() {
     default:
       printf("\n!!\tOpção inválida\t!!\n\n");
       break;
-    }
-  } 
-  }
-  while (opcao != 4);
-  
-
+    } 
+  } while (opcao != 4);
   return 0;
 }

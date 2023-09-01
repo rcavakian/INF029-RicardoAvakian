@@ -143,12 +143,12 @@ int cadastrar_professor(Professor listaProfessores[], int contadorProfessores) {
 }
 
 /// @brief Função para Listar professores cadastrados
-/// @param listaProfessor 
-/// @param contadorProfessor 
+/// @param listaProfessores
+/// @param contadorProfessores
 /// @return 
 int menu_listar_professor(Professor listaProfessores[], int contadorProfessores) {
         printf("\n2 - Listar Professor\n\n");
-        if (contadorProfessor == 0){
+        if (contadorProfessores == 0){
           return LISTA_VAZIA;
         }
         else
@@ -156,8 +156,8 @@ int menu_listar_professor(Professor listaProfessores[], int contadorProfessores)
 }
 
 /// @brief Função para Atualizar a matricula de um professor 
-/// @param listaProfessor 
-/// @param contadorProfessor 
+/// @param listaProfessores
+/// @param contadorProfessores
 /// @return 
 int atualizar_professor(Professor listaProfessores[], int contadorProfessores) {
   int matricula;
@@ -170,13 +170,13 @@ int atualizar_professor(Professor listaProfessores[], int contadorProfessores) {
     return MATRICULA_INVALIDA;
   }
   else {
-    for (int i = 0; i < contadorProfessor; i++)
+    for (int i = 0; i < contadorProfessores; i++)
     {
-      if (matricula == listaProfessor[i].matricula)
+      if (matricula == listaProfessores[i].matricula)
       {
         printf("\nDigite a NOVA matrícula: ");
         scanf("%d", &matricula);
-        listaProfessor[i].matricula = matricula;
+        listaProfessores[i].matricula = matricula;
         matricula_localizada = 1;
         break;
       }
