@@ -27,7 +27,8 @@
         "professor.h": "c",
         "aluno.h": "c",
         "menus.h": "c",
-        "cpf.h": "c"
+        "cpf.h": "c",
+        "stdio.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
