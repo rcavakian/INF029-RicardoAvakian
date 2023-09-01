@@ -26,13 +26,13 @@ int main() {
   int contadorAlunos = 0;
   int contadorProfessores = 0;
   int opcao;
-  
+
   printf("\n**\tProjeto Escola\t**\n\n");
   do {
     opcao = menu_principal();
     switch (opcao) {
       int matricula;
-      int matricula_localizada = 0;
+      
     case 1:
       printf("\n**\tMódulo Aluno\t**\n");
       int opcaoAluno;
@@ -168,8 +168,9 @@ int main() {
       printf("\n!!\tOpção inválida\t!!\n\n");
       break;
     }
-
-  } while (opcao != 4);
+  } 
+  }
+  while (opcao != 4);
   
 
   return 0;

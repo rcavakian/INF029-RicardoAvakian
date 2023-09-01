@@ -9,8 +9,6 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos);
 int menu_listar_alunos(Aluno listarAlunos[], int contadorAlunos);
 int atualizar_aluno(Aluno listaAlunos[], int contadorAlunos);
 int excluir_aluno(Aluno listaAlunos[], int contadorAlunos);
-void menu_professor();
 void menu_discplina();
-
 
 #endif
