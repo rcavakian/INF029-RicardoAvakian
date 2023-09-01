@@ -1,9 +1,22 @@
 #include <string.h>
+#include <stdio.h>
 #include <time.h>
 #include "data_nascimento.h"
 #define ANO_MINIMO 1970
 #define ANO_MAXIMO 2023
 
+
+/// @brief Função para verificar se um ano é bissexto
+/// @param anoBissexto do tipo int
+/// @return 1 para true e 0 para false
+int validaAnoBissexto(int anoBissexto) {
+  if (anoBissexto % 400 == 0 || anoBissexto % 4 == 0 && anoBissexto % 100 != 0) {
+      return 1;
+  }
+  else {
+    return 0;
+  }
+}
 
 /// @brief Função que verifica se a data de nascimento informada é valida 
 /// @param char data[] 
@@ -15,15 +28,14 @@ int valida_data(char *data) {
   if (strlen(data) != 10) {
     return 1;
   }
-
+  
   // Verifica se a string contém apenas números e se as posições 2 e 5 são "-" 
   for (int i = 0; i < strlen(data); i++) {
     if (data[2] == '/' || data[5] == '/') {
-        break;
+      break;
     }
     if (data[i] < '0' || data[i] > '9')
       return 2;
-
   }
 
   // Separa os campos da data
@@ -87,17 +99,7 @@ int valida_data(char *data) {
   return 0;
 }
 
-/// @brief Função para verificar se um ano é bissexto
-/// @param anoBissexto do tipo int
-/// @return 1 para true e 0 para false
-int validaAnoBissexto(int anoBissexto) {
-  if (anoBissexto % 400 == 0 || anoBissexto % 4 == 0 && anoBissexto % 100 != 0) {
-      return 1;
-  }
-  else {
-    return 0;
-  }
-}
+
 
 /// @brief Função para converter un char data[] "01/01/1970" em segundos
 /// @param text do tipo char []

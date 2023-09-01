@@ -1,7 +1,7 @@
 #include "cpf.h"
 #include <string.h>
-#define CPF_VALIDO 0
-#define CPF_INVALIDO 1
+#define CPF_VALIDO 11
+#define CPF_INVALIDO 10
 
 
 /// @brief Função para validar CPF
@@ -10,17 +10,17 @@
 int validar_cpf(char cpf[])
 {
     // Verificar se a informacao digitado tem 11 caracteres
-    if (strlen(cpf) < 11) {
-        return CPF_INVALIDO;
-    }
+    //if (strlen(cpf) < 11) {
+      //  return CPF_INVALIDO;
+    //}
 
     /*
     Converter os 11 caracteres em algarismos do tipo int e dividir em 2 grupos: 
     primeiro grupo com os 9 primeiros algarismos e o segundo com os 2 digitos
     */ 
-    int cpf_numerico_grupo1[12];
-    int cpf_numerico_grupo2[12];
-    for (int i = 0; i < 12; i++) {
+    int cpf_numerico_grupo1[9];
+    int cpf_numerico_grupo2[2];
+    for (int i = 0; i < 10; i++) {
         if (i < 9) {
             cpf_numerico_grupo1[i] = cpf[i] - '0';
         }
@@ -46,7 +46,7 @@ int validar_cpf(char cpf[])
         modulo--;
     }
 
-    primeiro_digito = (soma % 11) - 11;
+    primeiro_digito = 11 - (soma % 11) ;
     if (primeiro_digito > 9) {
         primeiro_digito = 0;
     }
@@ -58,7 +58,13 @@ int validar_cpf(char cpf[])
     parte dos cálculos. 
     */
     int segundo_digito = 0;
-    segundo_digito = (soma + primeiro_digito) % 11 - 11;
+    modulo = 11;
+    for (int i = 0; i < 9; i++) {
+        soma += (modulo * cpf_numerico_grupo1[i]);
+        modulo--;
+    }
+    segundo_digito = modulo * primeiro_digito;
+    segundo_digito = 11 - (segundo_digito % 11);
     if (segundo_digito > 9) {
         segundo_digito = 0;
     }
