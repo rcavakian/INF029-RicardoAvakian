@@ -26,6 +26,7 @@ int main() {
   int contadorAlunos = 0;
   int contadorProfessores = 0;
   int opcao;
+  
   printf("\n**\tProjeto Escola\t**\n\n");
   do {
     opcao = menu_principal();
