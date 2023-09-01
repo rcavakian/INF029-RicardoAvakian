@@ -79,11 +79,13 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
           int validacaoCPF = 0;
 
           limpar_buffer();
-          
+
+          // Cadastrar Nome
           printf("\nDigite NOME: ");
           ler_texto(aluno.nome, sizeof(aluno.nome));
           //aluno.nome[strcspn(aluno.nome, "\n")] = '\0';
 
+          // Cadastrar CPF
           while (validacaoCPF != CPF_VALIDO) {
             char cpfDigitado[12];
             printf("\nDigite o CPF do aluno (APENAS NUMEROS/ALGARISMOS): ");
@@ -107,14 +109,17 @@ int cadastrar_aluno(Aluno listaAlunos[], int contadorAlunos) {
             }
           }
 
+          // Cadastrar Matricula
           printf("\nDigite a MATRICULA: ");
           scanf("%d", &aluno.matricula);
           limpar_buffer();
 
+          // Cadastrar Sexo
           printf("\nDigite o SEXO: ");
           scanf("%c", &aluno.sexo);
           limpar_buffer();
 
+          // Cadastrar Data de nascimento
           while (validacaoData != 0) {
             char data_digitada[11];
             printf("\nDigite DATA de NASCIMENTO no formato dd/mm/aaaa(d = dia; m = mes; a = ano): ");
