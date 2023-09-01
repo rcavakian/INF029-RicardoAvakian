@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include "professor.h"
 #include "data_nascimento.h"
+#include "aluno.h"
 #include "cpf.h"
+#include "menus.h"
 #include "menu_professor.h"
 
 #define TAM_PROFESSORES 3
