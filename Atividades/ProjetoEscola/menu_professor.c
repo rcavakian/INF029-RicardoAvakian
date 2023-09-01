@@ -204,7 +204,7 @@ int excluir_professor(Professor listaProfessores[], int contadorProfessores) {
   }
   else {
     for (int i = 0; i < contadorProfessores; i++) {
-      if (matricula == listProfessores[i].matricula) {
+      if (matricula == listaProfessores[i].matricula) {
         matricula_localizada = 1;
         for (int j = i; j < contadorProfessores - 1; j++) {
           listProfessores[j].matricula = listProfessores[j + 1].matricula;
