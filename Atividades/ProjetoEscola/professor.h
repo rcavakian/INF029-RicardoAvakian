@@ -16,4 +16,13 @@ typedef struct Professor{
   time_t dataNascimento;
 } Professor;
 
+/// @brief Função para imprimir tipo Professor
+/// @param professor do tipo Professor
+void imprimirProfessor(Professor professor);
+
+/// @brief Função para imprimir lista de professor
+/// @param professor do tipo Professor
+/// @param tamanho do tipo int
+void imprimirListaProfessores(Professor listaProfessores[], int tamanho);
+
 #endif
