@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "professor.h"
-#include "menus.h"
 #include "data_nascimento.h"
 #include "cpf.h"
 #include "menu_professor.h"
@@ -207,8 +206,8 @@ int excluir_professor(Professor listaProfessores[], int contadorProfessores) {
       if (matricula == listaProfessores[i].matricula) {
         matricula_localizada = 1;
         for (int j = i; j < contadorProfessores - 1; j++) {
-          listProfessores[j].matricula = listProfessores[j + 1].matricula;
-          listProfessores[j].sexo = listProfessores[j + 1].sexo;
+          listaProfessores[j].matricula = listaProfessores[j + 1].matricula;
+          listaProfessores[j].sexo = listaProfessores[j + 1].sexo;
         }
         break;
       }
