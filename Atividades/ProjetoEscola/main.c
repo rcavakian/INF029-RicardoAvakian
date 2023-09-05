@@ -11,6 +11,7 @@
 
 #define TAM_ALUNOS 3
 #define TAM_PROFESS 3
+#define TAM_LINHA 80
 #define CADASTRO_SUCESSO -1
 #define CADASTRO_NAO_REALIZADO -2
 #define MATRICULA_INVALIDA -3
@@ -21,6 +22,7 @@
 
 int main() {
 
+  File *start_file;
   Aluno listaAlunos[TAM_ALUNOS];
   Professor listaProfessores[TAM_PROFESS];
   int contadorAlunos = 0;
@@ -28,6 +30,70 @@ int main() {
   int opcao;
 
   printf("\n**\tProjeto Escola\t**\n\n");
+  start_file = fopen("base_dados.txt", "r");
+
+  if (start_file) {
+    printf("Não existente, o arquivo \"base_dados.txt\" é. Ao encerrar o programa, CRIADO ele será, e as informações nele serão salvas.");
+  }
+  else {
+    //TODO: LER O ARQUIVO E ENCHER AS LISTAS 'ALUNOS' E 'PROFESSORES' 
+    // Tamanho do CHAR = Tamanho char nome(40) + tamanho int matricula (11) + tamanho char cpf(11) + 
+    // tamanho char data de nascimento(10) + char sexo (1) = 71 + ';'(5) + Letra identificação (1) = 77
+    char linha[TAM_LINHA];
+    while (!feof(start_file)) {
+      fgets(linha, TAM_LINHA, start_file);
+      // TODO: implementar logica para analisar e fragmentar char linha [] e inserir em cada lista
+      char classificacao = linha[0];
+      char nome[40];
+      int matricula;
+      char cpf[12];
+      char dataNascimento[11];
+      char sexo;
+
+      switch (classificacao) {
+      case 'A':
+        //TODO: quebrar char linha[] e inserir na listaAlunos[] utilizar um loop for já que é sabido de antemão quantos ';' teremos (6)
+        char *token = strtok(linha, ";");
+        for (int i = 0; i < 6; i++) {
+          if (i = 0) 
+            continue;
+          else {
+            switch (i) {
+            case 1:
+              strncpy(nome, token, sizeof(token));
+              break;
+            case 2:
+              char *endptr;
+              matricula = strtol(token, &endptr, 10);
+              break;
+            case 3:
+              *sexo = token;
+              break;
+            case 4:
+              strncpy(cpf, token, sizeof(token));
+              break;
+            case 5:
+              strncpy(dataNascimento, token, sizeof(token));
+              break;
+            default:
+              break;
+            }
+          } 
+        }
+
+
+        break;
+      case 'P':
+        //TODO: quebrar char linha[] e inserir na listaProfessores[]
+        break;
+      default:
+        break;
+      }
+    }
+    
+
+
+  }
   do {
     opcao = menu_principal();
     switch (opcao) {
@@ -108,7 +174,7 @@ int main() {
             printf("\n!! Lista de professores CHEIA !!\n");
           }
           else if (resposta_retorno == MATRICULA_INVALIDA) {
-            printf("\n\t!! Matricula do professor INVALIDA !!\n");
+            printf("\n\t!! INVALIDA, a matrícula do professor está. !!\n");
           }
           else {
             contadorProfessores++;
@@ -163,6 +229,13 @@ int main() {
       break;
     case 4:
       printf("\n**\tPrograma finalizado\t**\n\n");
+      fp = fopen("base_dados.txt", "w");
+
+      //TODO: implementar nesse switch logica para salvar dados das listas no arquivo txt.
+      // formato arquivo txt: 'A' para Aluno e 'P' para Professor separar cada campo por ';' e cadastrar 
+      // na ordem que vem na propria struct: Nome, matricula, sexo, CPF e data de nascimento
+
+
       break;
     default:
       printf("\n!!\tOpção inválida\t!!\n\n");
