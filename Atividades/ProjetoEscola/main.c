@@ -8,6 +8,8 @@
 #include "menus.h"
 #include "menu_professor.h"
 #include "cpf.h"
+#include "ferramentas.h"
+
 
 #define TAM_ALUNOS 3
 #define TAM_PROFESS 3
@@ -39,8 +41,27 @@ int main() {
     //TODO: LER O ARQUIVO E ENCHER AS LISTAS 'ALUNOS' E 'PROFESSORES' 
     // Tamanho do CHAR = Tamanho char nome(40) + tamanho int matricula (11) + tamanho char cpf(11) + 
     // tamanho char data de nascimento(10) + char sexo (1) = 71 + ';'(5) + Letra identificação (1) = 77
+    int contador_alunos = 0;
+    int contador_professores = 0;
     char linha[TAM_LINHA];
-    while (!feof(start_file)) {
+
+    // Verificar quantos alunos e professores tem cadastrados para poder 
+    if (fgets(linha, sizeof(line), start_file) != NULL) {
+      while (!feof(start_file)) {
+        if (linha[0] == 'A') {
+          contador_alunos++;
+        }
+        else if (linha[0] == 'P') {
+          contador_professores++;
+        }
+        else {
+          continue;
+        }
+      }
+      
+    }
+    for (int i = 0; i < contador_alunos; i++) {
+      while (!feof(start_file)) {
       fgets(linha, TAM_LINHA, start_file);
       // TODO: implementar logica para analisar e fragmentar char linha [] e inserir em cada lista
       char classificacao = linha[0];
@@ -60,28 +81,30 @@ int main() {
           else {
             switch (i) {
             case 1:
-              strncpy(nome, token, sizeof(token));
+              //strncpy(nome, token, sizeof(token));
+              copiar_string(token, listaProfessores[i].nome);
               break;
             case 2:
               char *endptr;
-              matricula = strtol(token, &endptr, 10);
+              listaProfessores[i].matricula = strtol(token, &endptr, 10);
               break;
             case 3:
-              *sexo = token;
+              listaProfessores[i].sexo = token;
               break;
             case 4:
-              strncpy(cpf, token, sizeof(token));
+              //strncpy(cpf, token, sizeof(token));
+              copiar_string(token, listaProfessores[i].cpf);
               break;
             case 5:
-              strncpy(dataNascimento, token, sizeof(token));
+              //strncpy(dataNascimento, token, sizeof(token));
+              // Aqui precisa tratar a informação armazenada se em string(dd/mm/aaaa) ou time_t(lli) 
+
               break;
             default:
               break;
             }
           } 
         }
-
-
         break;
       case 'P':
         //TODO: quebrar char linha[] e inserir na listaProfessores[]
@@ -90,6 +113,9 @@ int main() {
         break;
       }
     }
+      
+    }
+    
     
 
 

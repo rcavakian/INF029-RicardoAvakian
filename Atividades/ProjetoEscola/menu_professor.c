@@ -7,6 +7,8 @@
 #include "cpf.h"
 #include "menus.h"
 #include "menu_professor.h"
+#include "ferramentas.h"
+
 
 #define TAM_PROFESSORES 3
 #define CADASTRO_SUCESSO -1

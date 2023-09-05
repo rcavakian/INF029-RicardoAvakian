@@ -5,6 +5,7 @@
 #include "menus.h"
 #include "data_nascimento.h"
 #include "cpf.h"
+#include "ferramentas.h"
 
 #define TAM_ALUNOS 3
 #define CADASTRO_SUCESSO -1
@@ -17,22 +18,6 @@
 #define CPF_VALIDO 11
 #define CPF_INVALIDO 10
 
-
-/// @brief Função para ler uma string 
-/// @param buffer variavel onde string deve ser armazenada
-/// @param length tamano da string
-void ler_texto(char *buffer, int length) {
-	fgets(buffer, length, stdin);
-	strtok(buffer, "\n");
-}
-
-// Função que limpa o buffer de entrada
-void limpar_buffer() {
-    char ch;
-    do {
-        ch = fgetc(stdin);
-    } while (ch != EOF && ch != '\n');
-}
 
 /// @brief Menu principal do sistema do Projeto Escola
 /// @return tipo int para utilizar no Switch
