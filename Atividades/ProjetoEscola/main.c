@@ -76,24 +76,31 @@ int main() {
         //TODO: quebrar char linha[] e inserir na listaAlunos[] utilizar um loop for já que é sabido de antemão quantos ';' teremos (6)
         char *token = strtok(linha, ";");
         for (int i = 0; i < 6; i++) {
-          if (i = 0) 
+          if (i = 0) {
+            token = (NULL, ";");
             continue;
+          }
+
           else {
             switch (i) {
             case 1:
               //strncpy(nome, token, sizeof(token));
               copiar_string(token, listaProfessores[i].nome);
+              token = (NULL, ";");
               break;
             case 2:
               char *endptr;
               listaProfessores[i].matricula = strtol(token, &endptr, 10);
+              token = (NULL, ";");
               break;
             case 3:
               listaProfessores[i].sexo = token;
+              token = (NULL, ";");
               break;
             case 4:
               //strncpy(cpf, token, sizeof(token));
               copiar_string(token, listaProfessores[i].cpf);
+              token = (NULL, ";");
               break;
             case 5:
               //strncpy(dataNascimento, token, sizeof(token));
