@@ -152,6 +152,97 @@ int main() {
             }
           }
         }     
+        fgets(linha, TAM_LINHA, start_file);
+        // TODO: implementar logica para analisar e fragmentar char linha [] e inserir em cada lista
+        if (linha[0] == 'A') {
+          // TODO: quebrar char linha[] e inserir na listaAlunos[] utilizar um loop for já que é sabido de antemão quantos ';' teremos (6)
+          for (int i = 0; i < 6; i++)
+          {
+            if (i = 0) {
+              token = (NULL, ";");
+              continue;
+            }
+            else
+            {
+              switch (i)
+              {
+              case 1:
+                // strncpy(nome, token, sizeof(token));
+                copiar_string(token, listaAlunos[i].nome);
+                token = (NULL, ";");
+                break;
+              case 2:
+                char *endptr;
+                listaAlunos[i].matricula = strtol(token, &endptr, 10);
+                token = (NULL, ";");
+                break;
+              case 3:
+                copiar_string(token, listaAlunos[i].sexo);
+                token = (NULL, ";");
+                break;
+              case 4:
+                // strncpy(cpf, token, sizeof(token));
+                copiar_string(token, listaAlunos[i].cpf);
+                token = (NULL, ";");
+                break;
+              case 5:
+                // Converter string para time_t
+                listaAlunos[i].dataNascimento = texto_para_tempo(token);
+                token = (NULL, ";");
+                break;
+              default:
+                break;
+              }
+            }
+          }
+        }     
+      }
+    }
+
+    // Loop 'for' para armazenar cada trecho da linha na listaProfessores
+    for (int i = 0; i < contador_professores; i++) {
+      while (!feof(start_file)) {
+        fgets(linha, TAM_LINHA, start_file);
+        // TODO: implementar logica para analisar e fragmentar char linha [] e inserir em cada lista
+        if (linha[0] == 'A') {
+          // TODO: quebrar char linha[] e inserir na listaProfessores[] utilizar um loop for já que é sabido de antemão quantos ';' teremos (6)
+          for (int i = 0; i < 6; i++)
+          {
+            if (i = 0) {
+              token = (NULL, ";");
+              continue;
+            }
+            else
+            {
+              switch (i)
+              {
+              case 1:
+                copiar_string(token, listaProfessores[i].nome);
+                token = (NULL, ";");
+                break;
+              case 2:
+                char *endptr;
+                listaProfessores[i].matricula = strtol(token, &endptr, 10);
+                token = (NULL, ";");
+                break;
+              case 3:
+                copiar_string(token, listaProfessores[i].sexo);
+                token = (NULL, ";");
+                break;
+              case 4:
+                copiar_string(token, listaProfessores[i].cpf);
+                token = (NULL, ";");
+                break;
+              case 5:
+                listaProfessores[i].dataNascimento = texto_para_tempo(token);
+                token = (NULL, ";");
+                break;
+              default:
+                break;
+              }
+            }
+          }
+        }     
       }
     }
   }
