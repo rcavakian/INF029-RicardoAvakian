@@ -67,8 +67,10 @@ int main() {
           // TODO: quebrar char linha[] e inserir na listaAlunos[] utilizar um loop for já que é sabido de antemão quantos ';' teremos (6)
           for (int i = 0; i < 6; i++)
           {
-            if (i = 0)
+            if (i = 0) {
+              token = (NULL, ";");
               continue;
+            }
             else
             {
               switch (i)
@@ -76,21 +78,26 @@ int main() {
               case 1:
                 // strncpy(nome, token, sizeof(token));
                 copiar_string(token, listaAlunos[i].nome);
+                token = (NULL, ";");
                 break;
               case 2:
                 char *endptr;
                 listaAlunos[i].matricula = strtol(token, &endptr, 10);
+                token = (NULL, ";");
                 break;
               case 3:
                 copiar_string(token, listaAlunos[i].sexo);
+                token = (NULL, ";");
                 break;
               case 4:
                 // strncpy(cpf, token, sizeof(token));
                 copiar_string(token, listaAlunos[i].cpf);
+                token = (NULL, ";");
                 break;
               case 5:
                 // Converter string para time_t
                 listaAlunos[i].dataNascimento = texto_para_tempo(token);
+                token = (NULL, ";");
                 break;
               default:
                 break;
@@ -110,30 +117,34 @@ int main() {
           // TODO: quebrar char linha[] e inserir na listaProfessores[] utilizar um loop for já que é sabido de antemão quantos ';' teremos (6)
           for (int i = 0; i < 6; i++)
           {
-            if (i = 0)
+            if (i = 0) {
+              token = (NULL, ";");
               continue;
+            }
             else
             {
               switch (i)
               {
               case 1:
-                // strncpy(nome, token, sizeof(token));
                 copiar_string(token, listaProfessores[i].nome);
+                token = (NULL, ";");
                 break;
               case 2:
                 char *endptr;
                 listaProfessores[i].matricula = strtol(token, &endptr, 10);
+                token = (NULL, ";");
                 break;
               case 3:
                 copiar_string(token, listaProfessores[i].sexo);
+                token = (NULL, ";");
                 break;
               case 4:
-                // strncpy(cpf, token, sizeof(token));
                 copiar_string(token, listaProfessores[i].cpf);
+                token = (NULL, ";");
                 break;
               case 5:
-                // Converter string para time_t
                 listaProfessores[i].dataNascimento = texto_para_tempo(token);
+                token = (NULL, ";");
                 break;
               default:
                 break;
@@ -144,6 +155,7 @@ int main() {
       }
     }
   }
+  fclose(start_file);
 
   // Loop para execurtar o menu principal do sistema escola
   do {
@@ -281,12 +293,15 @@ int main() {
       break;
     case 4:
       printf("\n**\tPrograma finalizado\t**\n\n");
-      fp = fopen("base_dados.txt", "w");
+      start_file = fopen("base_dados.txt", "w");
 
       //TODO: implementar nesse switch logica para salvar dados das listas no arquivo txt.
       // formato arquivo txt: 'A' para Aluno e 'P' para Professor separar cada campo por ';' e cadastrar 
       // na ordem que vem na propria struct: Nome, matricula, sexo, CPF e data de nascimento(armazenar como string dd/mm/aaaa)
-
+      // 1 - concatenar todos os dados com essa logica e armazenar em uma string linha
+      // https://www.youtube.com/watch?v=7pWQWqGnVso&list=PLa75BYTPDNKZWYypgOFEsX3H2Mg-SzuLW&index=48
+      // 2 - Escrever linha por linha com o comando fprintf 'w' e colocar no final um '\n' para poder pular de linha
+      
 
       break;
     default:
