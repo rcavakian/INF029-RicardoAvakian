@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <ferramentas.h>
+#include "ferramentas.h"
 
 /// @brief Função para copiar um vetor de char (string) para outro 
 /// @param char_origem 
