@@ -35,7 +35,7 @@ int main() {
   start_file = fopen("base_dados.txt", "r");
   printf("\nAbriu arquivo");
 
-  if (start_file) {
+  if (start_file == NULL) {
     printf("Não existente, o arquivo \"base_dados.txt\" é. Ao encerrar o programa, CRIADO ele será, e as informações nele serão salvas.");
   }
   else {
