@@ -30,3 +30,4 @@ void limpar_buffer() {
         ch = fgetc(stdin);
     } while (ch != EOF && ch != '\n');
 }
+

@@ -21,135 +21,145 @@
 #define ATUALIZACAO_SUCESSO -5
 #define EXCLUSAO_SUCESSO -6
 #define LISTA_VAZIA -7
+#define TAM_MAX_LINHA 100
 
 int main() {
 
-  FILE *start_file;
   Aluno listaAlunos[TAM_ALUNOS];
   Professor listaProfessores[TAM_PROFESS];
   int contadorAlunos = 0;
   int contadorProfessores = 0;
   int opcao;
+  FILE * start_file = fopen("escolaDados.txt", "r");
 
   printf("\n**\tProjeto Escola\t**\n\n");
-  start_file = fopen("base_dados.txt", "r");
-  printf("\nAbriu arquivo");
+  // printf("\nAbriu arquivo");
 
   if (start_file == NULL) {
-    printf("Não existente, o arquivo \"base_dados.txt\" é. Ao encerrar o programa, CRIADO ele será, e as informações nele serão salvas.");
+    printf("Não existente, o arquivo \"escolaDados.txt\" é. Ao encerrar o programa, CRIADO ele será, e as informações nele serão salvas.\n\n");
   }
   else {
     //TODO: LER O ARQUIVO E ENCHER AS LISTAS 'ALUNOS' E 'PROFESSORES' 
     // Tamanho do CHAR = Tamanho char nome(40) + tamanho int matricula (11) + tamanho char cpf(11) + 
     // tamanho char data de nascimento(10) + char sexo (1) = 71 + ';'(5) + Letra identificação (1) = 77
-    printf("\nEntrou no else...");
+    // printf("\nEntrou no else...");
     int contador_alunos = 0;
     int contador_professores = 0;
-    char linha[TAM_LINHA];
-    char *token = strtok(linha, ";");
+    char * separador_token = ";";
+    char * token;
+    char linha[TAM_MAX_LINHA];
+
+
 
     // Verificar quantos alunos e professores tem cadastrados para poder utilizar nos proximos loops(for)
-    if (fgets(linha, sizeof(linha), start_file) != NULL) {
-      while (!feof(start_file)) {
+    if (start_file != NULL) {
+      while (fgets(linha, TAM_MAX_LINHA, start_file) != NULL) {
         if (linha[0] == 'A') {
           contador_alunos++;
         }
-        else {
+        else if (linha[0] == 'P') {
           contador_professores++;
+        }
+        memset(linha, 0, TAM_MAX_LINHA);
+      }
+    }
+
+    // Loop para armazenar cada trecho da linha de Aluno e armazenar na listaAlunos
+    rewind(start_file);
+    int aluno = 0;
+    while (fgets(linha, TAM_MAX_LINHA, start_file) != NULL) {
+      while (aluno < contador_alunos) {
+      token = strtok(linha, separador_token);
+      int contador = 0;
+      if (linha[0] == 'A') {
+        while (token != NULL) {
+          // TODO: implementar logica para analisar e fragmentar char linha [] e inserir em cada lista
+          switch (contador) {
+          case 0:
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 1:
+            copiar_string(token, listaAlunos[aluno].nome);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 2:
+            listaAlunos[aluno].matricula = strtol(token, NULL, 10);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 3:
+            copiar_string(token, &listaAlunos[aluno].sexo);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 4:
+            copiar_string(token, listaAlunos[aluno].cpf);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 5:
+            listaAlunos[aluno].dataNascimento = texto_para_tempo(token);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          default:
+            break;
+          }
+        }
+        contadorAlunos++;
+        aluno++;
         }
       }
     }
-
-    // Loop 'for' para armazenar cada trecho da linha na listaAlunos
-    for (int i = 0; i < contador_alunos; i++) {
-      while (!feof(start_file)) {
-        fgets(linha, TAM_LINHA, start_file);
-        // TODO: implementar logica para analisar e fragmentar char linha [] e inserir em cada lista
-        if (linha[0] == 'A') {
-          // TODO: quebrar char linha[] e inserir na listaAlunos[] utilizar um loop for já que é sabido de antemão quantos ';' teremos (6)
-          for (int i = 0; i < 6; i++)
-          {
-            if (i == 0) {
-              token = (NULL, ";");
-              continue;
-            }
-            else
-            {
-              switch (i)
-              {
-              case 1:
-                copiar_string(token, listaAlunos[i].nome);
-                token = (NULL, ";");
-                break;
-              case 2:
-                listaAlunos[i].matricula = strtol(token, NULL, 10);
-                token = (NULL, ";");
-                break;
-              case 3:
-                copiar_string(token, &listaAlunos[i].sexo);
-                token = (NULL, ";");
-                break;
-              case 4:
-                copiar_string(token, listaAlunos[i].cpf);
-                token = (NULL, ";");
-                break;
-              case 5:
-                listaAlunos[i].dataNascimento = texto_para_tempo(token);
-                token = (NULL, ";");
-                break;
-              default:
-                break;
-              }
-            }
+    // Loop para armazenar cada trecho da linha Professor e armazenar na listaProfessores
+    rewind(start_file);
+    int professor = 0;
+    while (fgets(linha, TAM_MAX_LINHA, start_file) != NULL) {
+      while (professor < contador_professores) {
+      token = strtok(linha, separador_token);
+      int contador = 0;
+      if (linha[0] == 'P') {
+        while (token != NULL) {
+          // TODO: implementar logica para analisar e fragmentar char linha [] e inserir em cada lista
+          switch (contador) {
+          case 0:
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 1:
+            copiar_string(token, listaProfessores[professor].nome);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 2:
+            listaProfessores[professor].matricula = strtol(token, NULL, 10);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 3:
+            copiar_string(token, &listaProfessores[professor].sexo);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 4:
+            copiar_string(token, listaProfessores[professor].cpf);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          case 5:
+            listaProfessores[professor].dataNascimento = texto_para_tempo(token);
+            token = strtok(NULL, separador_token);
+            contador++;
+            break;
+          default:
+            break;
           }
-        }     
-      }
-    }
-
-    // Loop 'for' para armazenar cada trecho da linha na listaProfessores
-    for (int i = 0; i < contador_professores; i++) {
-      while (!feof(start_file)) {
-        fgets(linha, TAM_LINHA, start_file);
-        // TODO: implementar logica para analisar e fragmentar char linha [] e inserir em cada lista
-        if (linha[0] == 'A') {
-          // TODO: quebrar char linha[] e inserir na listaProfessores[] utilizar um loop for já que é sabido de antemão quantos ';' teremos (6)
-          for (int i = 0; i < 6; i++)
-          {
-            if (i == 0) {
-              token = (NULL, ";");
-              continue;
-            }
-            else
-            {
-              switch (i)
-              {
-              case 1:
-                copiar_string(token, listaProfessores[i].nome);
-                token = (NULL, ";");
-                break;
-              case 2:
-                // char *endptr;
-                listaProfessores[i].matricula = strtol(token, NULL, 10);
-                token = (NULL, ";");
-                break;
-              case 3:
-                copiar_string(token, &listaProfessores[i].sexo);
-                token = (NULL, ";");
-                break;
-              case 4:
-                copiar_string(token, listaProfessores[i].cpf);
-                token = (NULL, ";");
-                break;
-              case 5:
-                listaProfessores[i].dataNascimento = texto_para_tempo(token);
-                token = (NULL, ";");
-                break;
-              default:
-                break;
-              }
-            }
-          }
-        }         
+        }
+        contadorProfessores++;
+        professor++;
+        }
       }
     }
   }
@@ -291,7 +301,7 @@ int main() {
       break;
     case 4:
       printf("\n**\tPrograma finalizado\t**\n\n");
-      start_file = fopen("base_dados.txt", "w+");
+      start_file = fopen("escolaDados.txt", "w+");
       //TODO: implementar nesse switch logica para salvar dados das listas no arquivo txt.
       // formato arquivo txt: 'A' para Aluno e 'P' para Professor separar cada campo por ';' e cadastrar 
       // na ordem que vem na propria struct: Nome, matricula, sexo, CPF e data de nascimento(armazenar como string dd/mm/aaaa)
@@ -309,7 +319,7 @@ int main() {
       for (int i = 0; i < contadorProfessores; i++) {
         char dataNascimentoString[12];
         tempo_para_texto(&listaProfessores[i].dataNascimento, dataNascimentoString, 12);
-        fprintf(start_file, "P;%s;%d;%c;%s;%s", listaProfessores[i].nome, listaProfessores[i].matricula, listaProfessores[i].sexo, listaProfessores[i].cpf, dataNascimentoString);
+        fprintf(start_file, "P;%s;%d;%c;%s;%s\n", listaProfessores[i].nome, listaProfessores[i].matricula, listaProfessores[i].sexo, listaProfessores[i].cpf, dataNascimentoString);
         if (i < contadorProfessores - 1) {
           fputs("\n", start_file);
         }
