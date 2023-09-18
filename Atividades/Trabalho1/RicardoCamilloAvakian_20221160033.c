@@ -157,11 +157,61 @@ int validaAnoBissexto(int anoBissexto) {
   }
 }
 
-int q1(char data[])
-{
+int q1(char data[]) {
   int datavalida = 1;
 
-  //quebrar a string data em strings sDia, sMes, sAno
+  // Strings para armazenar cada parte da data informada
+  char strDia[3];
+  char strMes[3];
+  char strAno[5];
+
+  //quebrar a string data em strings strDia, strMes, strAno
+  for (int i = 0; i != '\0'; i++) {
+    strDia[i] = data[i];
+  }
+  
+  // testa o dia se esta com 1 ou 2 digitos
+  if (i == 1 || i == 2) {
+    strDia[i] = '\0';
+  } else {
+    return 0;
+  }
+
+  int j = i + 1;
+  i = 0;
+
+  for (; data[j] != '\0'; j++) {
+    strMes[i] = data[j];
+    i++;
+  }
+
+  // testa o mes se esta com 1 ou 2 digitos
+  if (i == 1 || i == 2) {
+    strMes[i] = '\0';
+  } else {
+    return 0;
+  }
+
+  j = j + 1;
+  i = 0;
+  for (; data[j] != '\0'; j++) {
+    strAno[i] = data[j];
+    i++;
+  }
+  // testa o ano se esta com 2 ou 4 digitos
+  if (i == 2) {
+    strAno[2] = strAno[0];
+    strAno[3] = strAno[1];
+    strAno[4] = '\0';
+    strAno[0] = '2';
+    strAno[1] = '0';
+  } else if (i == 4) {
+    strAno[i] = '\0';
+  } else {
+    return 0;
+  }
+
+  // implementar metodo para poder acrescentar 2000 em casos onde a data foi digitada apenas com 2 digitos
 
   //DataQuebrada dataQuebrada = quebraData(data);
   //if (dataQuebrada.valido == 0) return 0;
@@ -192,7 +242,7 @@ int q1(char data[])
       return 0;
   }
 
-  // Separa os campos da data
+  // Separa os campos da data 
   dia = (data[0] - '0') * 10 + (data[1] - '0');
   mes = (data[3] - '0') * 10 + (data[4] - '0');
   ano = (data[6] - '0') * 1000 + (data[7] - '0') * 100 +
