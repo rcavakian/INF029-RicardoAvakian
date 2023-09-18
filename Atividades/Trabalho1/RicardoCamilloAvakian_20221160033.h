@@ -51,4 +51,8 @@ int q5(int num);
 int q6(int numerobase, int numerobusca);
 DataQuebrada quebraData(char data[]);
 
+// Funções auxiliares
+int validaAnoBissexto(int anoBissexto);
+
+
 #endif  // TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H

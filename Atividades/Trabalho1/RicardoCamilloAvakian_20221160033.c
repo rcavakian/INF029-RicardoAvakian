@@ -86,9 +86,9 @@ DataQuebrada quebraData(char data[]){
 	for (i = 0; data[i] != '/'; i++){
 		sDia[i] = data[i];	
 	}
-	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
+	if(i == 1 || i == 2) { // testa se tem 1 ou dois digitos
 		sDia[i] = '\0';  // coloca o barra zero no final
-	}else {
+	} else {
 		dq.valido = 0;
     return dq;
   }  
@@ -146,6 +146,17 @@ DataQuebrada quebraData(char data[]){
     Não utilizar funções próprias de string (ex: strtok)   
     pode utilizar strlen para pegar o tamanho da string
  */
+
+// Função auxiliar para validar se ano é o não bissexto (SIM = 1 // NAO = 0)
+int validaAnoBissexto(int anoBissexto) {
+  if (anoBissexto % 400 == 0 || anoBissexto % 4 == 0 && anoBissexto % 100 != 0) {
+      return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
 int q1(char data[])
 {
   int datavalida = 1;
@@ -156,6 +167,87 @@ int q1(char data[])
   //if (dataQuebrada.valido == 0) return 0;
 
   //printf("%s\n", data);
+
+  // Inicio da minha logica
+  int dia, mes, ano;
+
+  // Verifica se a string tem o tamanho correto
+  if (strlen(data) != 6 || strlen(data) != 7 || strlen(data) != 8 || strlen(data) != 10){
+    return 0;
+  }
+  
+  // Fazer um loop while (data[i] != '\0') que cada vez que encontra um '/' armazena o que encontrou antes 
+  int i = 0;
+  while (data[i] != '\0') {
+    
+  }
+
+  // Verifica se a string contém apenas números e o char '/'   
+  for (int i = 0; i < strlen(data); i++) {
+    if (data[i] == '/') {
+
+      continue;
+    }
+    if (data[i] < '0' || data[i] > '9')
+      return 0;
+  }
+
+  // Separa os campos da data
+  dia = (data[0] - '0') * 10 + (data[1] - '0');
+  mes = (data[3] - '0') * 10 + (data[4] - '0');
+  ano = (data[6] - '0') * 1000 + (data[7] - '0') * 100 +
+        (data[8] - '0') * 10 + (data[9] - '0');
+
+  // Verifica se o dia está no intervalo válido
+  if (dia < 1 || dia > 31) {
+    return 0;
+  }
+
+  // Verifica se o mês está no intervalo válido
+  if (mes < 1 || mes > 12) {
+    return 0;
+  }
+
+
+  // Verificar se quantidade de dias de um mes esta dentro do intervalo maximo para os meses de fevereiro, abril, junho, setembro e novembro em anos não bissextos
+  if (!validaAnoBissexto(ano) && dia > 28) {
+    switch (mes) {
+    case 2:
+      return 0;
+      break;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      if (dia > 30) 
+        return 0;
+      break;
+    default:
+      break;
+    }
+  }
+    else if (validaAnoBissexto(ano) && dia > 29) {
+      switch (mes) {
+      case 2:
+        return 0;
+        break;
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        if (dia > 30) 
+          return 0;
+        break;
+      default:
+        break;
+      }
+    }
+    else {
+      return 1;
+    }
+  // Se todos os testes forem aprovados, a data é válida
+  return 1;
+  // Termino da minha logica
 
   if (datavalida)
       return 1;
