@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include "RicardoCamilloAvakian_20221160033.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
+#include <string.h>
+
 /*
 ## função utilizada para testes  ##
 
@@ -159,21 +161,41 @@ int validaAnoBissexto(int anoBissexto) {
 
 int q1(char data[]) {
   int datavalida = 1;
-
+  int i;
   // Strings para armazenar cada parte da data informada
   char strDia[3];
   char strMes[3];
   char strAno[5];
+  
+  // Verifica se a string tem o tamanho correto
+  if (strlen(data) != 6 || strlen(data) != 7 || strlen(data) != 8 || strlen(data) != 10){
+    return 0;
+  }
+
+  // Verifica se a string contém apenas números e o char '/'   
+  for (i = 0; i < strlen(data); i++) {
+    if (data[i] == '/') {
+      continue;
+    }
+    if (data[i] < '0' || data[i] > '9')
+      return 0;
+  }
 
   //quebrar a string data em strings strDia, strMes, strAno
-  for (int i = 0; i != '\0'; i++) {
+  for (i = 0; i != '\0'; i++) {
     strDia[i] = data[i];
   }
   
-  // testa o dia se esta com 1 ou 2 digitos
-  if (i == 1 || i == 2) {
+  // testa o dia se esta com 1 ou 2 digitos, caso tenha apenas um digito acrescenta o '0' como primeiro digito
+  if (i == 1) {
+    strDia[1] = strDia[0];
+    strDia[0] = '0';
+    strDia[2] = '\0';
+  } 
+  else if (i == 2) {
     strDia[i] = '\0';
-  } else {
+  }
+  else {
     return 0;
   }
 
@@ -185,10 +207,16 @@ int q1(char data[]) {
     i++;
   }
 
-  // testa o mes se esta com 1 ou 2 digitos
-  if (i == 1 || i == 2) {
+  // testa o mes se esta com 1 ou 2 digitos, caso tenha apenas um digito acrescenta o '0' como primeiro digito
+  if (i == 1) {
+    strMes[1] = strMes[0];
+    strMes[0] = '0';
+    strMes[2] = '\0';
+  } 
+  else if (i == 2) {
     strMes[i] = '\0';
-  } else {
+  }
+  else {
     return 0;
   }
 
@@ -198,49 +226,23 @@ int q1(char data[]) {
     strAno[i] = data[j];
     i++;
   }
-  // testa o ano se esta com 2 ou 4 digitos
+  // testa o ano se esta com 2 ou 4 digitos e acrescenta o ano 2000 caso ano tenha sido informado com 2 digitos
   if (i == 2) {
     strAno[2] = strAno[0];
     strAno[3] = strAno[1];
     strAno[4] = '\0';
     strAno[0] = '2';
     strAno[1] = '0';
-  } else if (i == 4) {
+  } 
+  else if (i == 4) {
     strAno[i] = '\0';
-  } else {
+  } 
+  else {
     return 0;
   }
-
-  // implementar metodo para poder acrescentar 2000 em casos onde a data foi digitada apenas com 2 digitos
-
-  //DataQuebrada dataQuebrada = quebraData(data);
-  //if (dataQuebrada.valido == 0) return 0;
-
-  //printf("%s\n", data);
 
   // Inicio da minha logica
   int dia, mes, ano;
-
-  // Verifica se a string tem o tamanho correto
-  if (strlen(data) != 6 || strlen(data) != 7 || strlen(data) != 8 || strlen(data) != 10){
-    return 0;
-  }
-  
-  // Fazer um loop while (data[i] != '\0') que cada vez que encontra um '/' armazena o que encontrou antes 
-  int i = 0;
-  while (data[i] != '\0') {
-    
-  }
-
-  // Verifica se a string contém apenas números e o char '/'   
-  for (int i = 0; i < strlen(data); i++) {
-    if (data[i] == '/') {
-
-      continue;
-    }
-    if (data[i] < '0' || data[i] > '9')
-      return 0;
-  }
 
   // Separa os campos da data 
   dia = (data[0] - '0') * 10 + (data[1] - '0');
