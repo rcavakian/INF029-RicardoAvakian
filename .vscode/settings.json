@@ -29,7 +29,9 @@
         "menus.h": "c",
         "cpf.h": "c",
         "stdio.h": "c",
-        "ferramentas.h": "c"
+        "ferramentas.h": "c",
+        "cstring": "c",
+        "locale": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

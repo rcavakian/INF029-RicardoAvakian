@@ -151,38 +151,42 @@ DataQuebrada quebraData(char data[]){
 
 // Função auxiliar para validar se ano é o não bissexto (SIM = 1 // NAO = 0)
 int validaAnoBissexto(int anoBissexto) {
-  if (anoBissexto % 400 == 0 || anoBissexto % 4 == 0 && anoBissexto % 100 != 0) {
-      return 1;
+  if ((anoBissexto % 400 == 0) || (anoBissexto % 4 == 0 && anoBissexto % 100 != 0)) {
+    return 1;
   }
   else {
+    // printf("Error nao passou do validaAnoBissexto linha 157\n");
     return 0;
   }
 }
 
 int q1(char data[]) {
-  int datavalida = 1;
+  // int datavalida = 1;
   int i;
   // Strings para armazenar cada parte da data informada
   char strDia[3];
   char strMes[3];
   char strAno[5];
   
-  // Verifica se a string tem o tamanho correto
-  if (strlen(data) != 6 || strlen(data) != 7 || strlen(data) != 8 || strlen(data) != 10){
-    return 0;
-  }
+  //Verifica se a string tem o tamanho correto
+  // if (strlen(data) != 6 || strlen(data) != 7 || strlen(data) != 8 || strlen(data) != 10){
+  //   printf("Error nao passou do if de tamanho de strlen linha 171\n");
+  //   return 0;
+  // }
 
   // Verifica se a string contém apenas números e o char '/'   
   for (i = 0; i < strlen(data); i++) {
     if (data[i] == '/') {
       continue;
     }
-    if (data[i] < '0' || data[i] > '9')
+    if (data[i] < '0' || data[i] > '9') {
+      // printf("Error nao passou do for/if de verificacao de numeros apenas na linha 177\n");
       return 0;
+    }
   }
 
   //quebrar a string data em strings strDia, strMes, strAno
-  for (i = 0; i != '\0'; i++) {
+  for (i = 0; data[i] != '/'; i++) {
     strDia[i] = data[i];
   }
   
@@ -196,13 +200,14 @@ int q1(char data[]) {
     strDia[i] = '\0';
   }
   else {
+    // printf("Error nao passou do if/else de teste dia com 1 ou 2 digitos linha 192\n");
     return 0;
   }
 
   int j = i + 1;
   i = 0;
 
-  for (; data[j] != '\0'; j++) {
+  for (; data[j] != '/'; j++) {
     strMes[i] = data[j];
     i++;
   }
@@ -217,6 +222,7 @@ int q1(char data[]) {
     strMes[i] = '\0';
   }
   else {
+    // printf("Error nao passou do if/else de teste mes com 1 ou 2 digitos linha 214\n");
     return 0;
   }
 
@@ -238,6 +244,7 @@ int q1(char data[]) {
     strAno[i] = '\0';
   } 
   else {
+    // printf("Error nao passou do if/else de teste ano com 2 ou 4 digitos linha 234\n");
     return 0;
   }
 
@@ -252,11 +259,13 @@ int q1(char data[]) {
 
   // Verifica se o dia está no intervalo válido
   if (dia < 1 || dia > 31) {
+    // printf("Error nao passou do if teste dia linha 258\n");
     return 0;
   }
 
   // Verifica se o mês está no intervalo válido
   if (mes < 1 || mes > 12) {
+    // printf("Error nao passou do if teste mes linha 264\n");
     return 0;
   }
 
@@ -265,14 +274,17 @@ int q1(char data[]) {
   if (!validaAnoBissexto(ano) && dia > 28) {
     switch (mes) {
     case 2:
+      // printf("Error nao passou do if/swith validacao dia linha 274\n");
       return 0;
       break;
     case 4:
     case 6:
     case 9:
     case 11:
-      if (dia > 30) 
+      if (dia > 30) {
+        // printf("Error nao passou do if/swith validacao dia linha 282\n");
         return 0;
+      }
       break;
     default:
       break;
@@ -281,14 +293,17 @@ int q1(char data[]) {
     else if (validaAnoBissexto(ano) && dia > 29) {
       switch (mes) {
       case 2:
+        // printf("Error nao passou do if/swith validacao dia linha 292\n");
         return 0;
         break;
       case 4:
       case 6:
       case 9:
       case 11:
-        if (dia > 30) 
+        if (dia > 30) {
+          // printf("Error nao passou do if/swith validacao dia linha 300\n");
           return 0;
+        }
         break;
       default:
         break;
@@ -301,10 +316,6 @@ int q1(char data[]) {
   return 1;
   // Termino da minha logica
 
-  if (datavalida)
-      return 1;
-  else
-      return 0;
 }
 
 

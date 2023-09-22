@@ -65,8 +65,11 @@ void testQ1()
     char str[11];
     strcpy(str, "29/02/2015");
     printf("%d\n", q1(str) == 0);
-    strcpy(str, "29/02/2012");
+    strcpy(str, "29/02/2016");
     printf("%d\n", q1(str) == 1);
+    // print meu para testar a função anoBissexto apagar para entregar o trabalho assim que corrigir bug
+    // printf("retorno da função: %d com string %s \nAno é bissexto(1) ou não (0): %d\n", q1(str), str, validaAnoBissexto(2012));
+    // fim dos meus prints para testar funcao anoBissexto
     strcpy(str, "9/13/2014");
     printf("%d\n", q1(str) == 0);
     strcpy(str, "45/4/2014");
