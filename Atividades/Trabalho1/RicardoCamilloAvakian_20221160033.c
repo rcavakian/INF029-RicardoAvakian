@@ -135,6 +135,7 @@ DataQuebrada quebraData(char data[]){
     
   return dq;
 }
+
 /*
  Q1 = validar data
 @objetivo
@@ -148,7 +149,6 @@ DataQuebrada quebraData(char data[]){
     Não utilizar funções próprias de string (ex: strtok)   
     pode utilizar strlen para pegar o tamanho da string
  */
-
 // Função auxiliar para validar se ano é o não bissexto (SIM = 1 // NAO = 0)
 int validaAnoBissexto(int anoBissexto) {
   if ((anoBissexto % 400 == 0) || (anoBissexto % 4 == 0 && anoBissexto % 100 != 0)) {
@@ -315,7 +315,6 @@ int q1(char data[]) {
   // Se todos os testes forem aprovados, a data é válida
   return 1;
   // Termino da minha logica
-
 }
 
 
@@ -340,14 +339,21 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
     //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
 
-    if (q1(datainicial) == 0){
+    if (q1(datainicial) == 0) {
       dma.retorno = 2;
       return dma;
-    }else if (q1(datafinal) == 0){
+    } 
+    else if (q1(datafinal) == 0) {
       dma.retorno = 3;
       return dma;
-    }else{
+    }
+    else {
+      // Instanciar dataquebrada para dataInicial e dataFinal
+      DataQuebrada dqInicial = quebraData(datainicial);
+      DataQuebrada dqFinal = quebraData(datainicial);
+
       //verifique se a data final não é menor que a data inicial
+      
       
       //calcule a distancia entre as datas
 
