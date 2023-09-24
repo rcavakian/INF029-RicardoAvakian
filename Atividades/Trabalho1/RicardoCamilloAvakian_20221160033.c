@@ -351,9 +351,34 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       // Instanciar dataquebrada para dataInicial e dataFinal
       DataQuebrada dqInicial = quebraData(datainicial);
       DataQuebrada dqFinal = quebraData(datainicial);
-
       //verifique se a data final não é menor que a data inicial
-      
+      if (dqInicial.iAno > dqFinal.ano) {
+        return 4;
+      }
+      else if (dqInicial.iAno == dqFinal.iAno && dqInicial.iMes > dqFinal.iMes) {
+        return 4;
+      }
+      else if (dqInicial.iAno == dqFinal.iAno && dqInicial.iMes == dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
+        return 4;
+      }
+      else { // calcular a diferenca entre as datas
+        // calcular numero de anos entre as datas
+        dma.qtdAnos = dqFinal.iAno - dqInicial.iAno;
+        if (dqInicial.iMes > dqFinal.iMes) {
+          dma.qtdAnos -= 1;
+        }
+        else if (dqInicial.iMes == dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
+          dma.qtdAnos -= 1;
+        }
+
+        // calcular a diferença de meses entre as datas e armazenar em dma.qtdMeses 
+        dma.qtdMeses = (dqFinal.iMes - 1) + (12 - datainicial.iMes - 1);
+        if (dqInicial.mes < dqFinal.iMes && dqInicial.iDia < dqFinal.iDia) {
+          dma.qtdMeses = dqFinal.iMes - dqInicial.iMes;
+        }
+        else if ()
+
+      }
       
       //calcule a distancia entre as datas
 
