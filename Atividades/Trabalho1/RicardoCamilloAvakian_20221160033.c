@@ -385,7 +385,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
         else if (dma.qtdAnos >= 1 && dqInicial.iMes >= dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
           dma.qtdMeses = (12 - dqInicial.iMes - 1) + (dqFinal.iMes - 1);
         }
-        else if (dma.qtdAnos >= 1 && dqInicial.iMes >= dqFinal.iMes && dqInicial.iDia < dqFinal.iDia) {
+        else if (dma.qtdAnos >= 1 && dqInicial.iMes >= dqFinal.iMes && dqInicial.iDia <= dqFinal.iDia) {
           dma.qtdMeses = (12 - dqFinal.iMes) + dqFinal.iMes;
         }
         else if (dma.qtdAnos >= 1 && dqInicial.iMes < dqFinal.iMes && dqInicial.iDia <= dqFinal.iDia) {
