@@ -363,6 +363,9 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       }
       else { // calcular a diferenca entre as datas
         // calcular numero de anos entre as datas
+        //perguntar ao professor se posso colocar tudo em um if com o primeiro if envolto em parenteses 
+        //e o else if tambem ambos separados por um ou ||
+
         dma.qtdAnos = dqFinal.iAno - dqInicial.iAno;
         if (dqInicial.iMes > dqFinal.iMes) {
           dma.qtdAnos -= 1;
@@ -372,11 +375,22 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
         }
 
         // calcular a diferença de meses entre as datas e armazenar em dma.qtdMeses 
-        dma.qtdMeses = (dqFinal.iMes - 1) + (12 - datainicial.iMes - 1);
-        if (dqInicial.mes < dqFinal.iMes && dqInicial.iDia < dqFinal.iDia) {
+        // dma.qtdMeses = (dqFinal.iMes - 1) + (12 - datainicial.iMes - 1);
+        if (dma.qtdAnos == 0 && dqInicial.iDia <= dqFinal.iDia) {
           dma.qtdMeses = dqFinal.iMes - dqInicial.iMes;
         }
-        else if ()
+        else if (dma.qtdAnos == 0 && dqInicial.iDia > dqFinal.iDia) {
+          dma.qtdMeses = dqFinal.iMes - dqInicial.iMes - 1;
+        }
+        else if (dma.qtdAnos >= 1 && dqInicial.iMes >= dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
+          dma.qtdMeses = (12 - dqInicial.iMes - 1) + (dqFinal.iMes - 1);
+        }
+        else if (dma.qtdAnos >= 1 && dqInicial.iMes < dqFinal.iMes && dqInicial.iDia <= dqFinal.iDia) {
+          dma.qtdMeses = dqFinal.iMes - dqInicial.iMes;
+        }
+        else if (dma.qtdAnos >= 1 && dqInicial.iMes < dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
+          dma.qtdMeses = dqFinal.iMes - dqInicial - 1;
+        }
 
       }
       
