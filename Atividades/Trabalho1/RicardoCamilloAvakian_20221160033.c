@@ -418,7 +418,10 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]) {
           dma.qtdDias = calcularDias(dqInicial.iMes, dqInicial.iAno) - dqInicial.iDia + dqFinal.iDia;        
         }
         else if (dma.qtdAnos >= 1 && dqInicial.iMes >= dqFinal.iMes && dqInicial.iDia <= dqFinal.iDia) {
-          dma.qtdMeses = (12 - dqFinal.iMes) + dqFinal.iMes;
+          dma.qtdMeses = dqFinal.iMes + dqFinal.iMes;
+          if (dqInicial.iMes == dqFinal.iMes) {
+            dma.qtdMeses = 0;
+          }
           dma.qtdDias = dqFinal.iDia - dqInicial.iDia;
         }
         else if (dma.qtdAnos >= 1 && dqInicial.iMes < dqFinal.iMes && dqInicial.iDia <= dqFinal.iDia) {
