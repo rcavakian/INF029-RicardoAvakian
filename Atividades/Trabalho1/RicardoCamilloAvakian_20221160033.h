@@ -53,6 +53,7 @@ DataQuebrada quebraData(char data[]);
 
 // Funções auxiliares
 int validaAnoBissexto(int anoBissexto);
+int calcularDias(int mes, int ano);
 
 
 #endif  // TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H

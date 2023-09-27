@@ -317,7 +317,37 @@ int q1(char data[]) {
   // Termino da minha logica
 }
 
-
+// função auxiliar na Q2 para determinar quantos dias tem em um mes
+int calcularDias(int mes, int ano) {
+  switch (mes)
+  {
+  case 1: 
+  case 3:
+  case 5:
+  case 7:
+  case 8:
+  case 10:
+  case 12:
+    return 31;
+    break;
+  case 4:
+  case 6:
+  case 9:
+  case 11:
+    return 30;
+    break;
+  case 2:
+    if (validaAnoBissexto(ano)){
+      return 29;
+    }
+    else {
+      return 28;
+    }
+  default:
+    return -1;
+    break;
+  }
+}
 
 /*
  Q2 = diferença entre duas datas
@@ -333,8 +363,7 @@ int q1(char data[]) {
     4 -> datainicial > datafinal
     Caso o cálculo esteja correto, os atributos qtdDias, qtdMeses e qtdAnos devem ser preenchidos com os valores correspondentes.
  */
-DiasMesesAnos q2(char datainicial[], char datafinal[])
-{
+DiasMesesAnos q2(char datainicial[], char datafinal[]) {
 
     //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
@@ -350,27 +379,27 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
     else {
       // Instanciar dataquebrada para dataInicial e dataFinal
       DataQuebrada dqInicial = quebraData(datainicial);
-      DataQuebrada dqFinal = quebraData(datainicial);
+      DataQuebrada dqFinal = quebraData(datafinal);
       //verifique se a data final não é menor que a data inicial
-      if (dqInicial.iAno > dqFinal.ano) {
-        return 4;
+      if (dqInicial.iAno > dqFinal.iAno) {
+        dma.retorno = 4;
+        return dma;
       }
       else if (dqInicial.iAno == dqFinal.iAno && dqInicial.iMes > dqFinal.iMes) {
-        return 4;
+        dma.retorno = 4;
+        return dma;
       }
       else if (dqInicial.iAno == dqFinal.iAno && dqInicial.iMes == dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
-        return 4;
+        dma.retorno = 4;
+        return dma;
       }
       else { // calcular a diferenca entre as datas
         // calcular numero de anos entre as datas
         //perguntar ao professor se posso colocar tudo em um if com o primeiro if envolto em parenteses 
         //e o else if tambem ambos separados por um ou ||
-
+        printf("\nEntrou no esle para calcular a qtde de anos, meses e dias\n");
         dma.qtdAnos = dqFinal.iAno - dqInicial.iAno;
-        if (dqInicial.iMes > dqFinal.iMes) {
-          dma.qtdAnos -= 1;
-        }
-        else if (dqInicial.iMes == dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
+        if ((dqInicial.iMes > dqFinal.iMes) || (dqInicial.iMes == dqFinal.iMes && dqInicial.iDia > dqFinal.iDia)) {
           dma.qtdAnos -= 1;
         }
 
@@ -378,21 +407,27 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
         // dma.qtdMeses = (dqFinal.iMes - 1) + (12 - datainicial.iMes - 1);
         if (dma.qtdAnos == 0 && dqInicial.iDia <= dqFinal.iDia) {
           dma.qtdMeses = dqFinal.iMes - dqInicial.iMes;
+          dma.qtdDias = dqFinal.iDia - dqInicial.iDia;
         }
         else if (dma.qtdAnos == 0 && dqInicial.iDia > dqFinal.iDia) {
           dma.qtdMeses = dqFinal.iMes - dqInicial.iMes - 1;
+          dma.qtdDias = calcularDias(dqInicial.iMes, dqInicial.iAno) - dqInicial.iDia + dqFinal.iDia;
         }
         else if (dma.qtdAnos >= 1 && dqInicial.iMes >= dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
           dma.qtdMeses = (12 - dqInicial.iMes - 1) + (dqFinal.iMes - 1);
+          dma.qtdDias = calcularDias(dqInicial.iMes, dqInicial.iAno) - dqInicial.iDia + dqFinal.iDia;        
         }
         else if (dma.qtdAnos >= 1 && dqInicial.iMes >= dqFinal.iMes && dqInicial.iDia <= dqFinal.iDia) {
           dma.qtdMeses = (12 - dqFinal.iMes) + dqFinal.iMes;
+          dma.qtdDias = dqFinal.iDia - dqInicial.iDia;
         }
         else if (dma.qtdAnos >= 1 && dqInicial.iMes < dqFinal.iMes && dqInicial.iDia <= dqFinal.iDia) {
           dma.qtdMeses = dqFinal.iMes - dqInicial.iMes;
+          dma.qtdDias = dqFinal.iDia - dqInicial.iDia;
         }
         else if (dma.qtdAnos >= 1 && dqInicial.iMes < dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
-          dma.qtdMeses = dqFinal.iMes - dqInicial - 1;
+          dma.qtdMeses = dqFinal.iMes - dqInicial.iMes - 1;
+          dma.qtdDias = calcularDias(dqInicial.iMes, dqInicial.iAno) - dqInicial.iDia + dqFinal.iDia;        
         }
 
       }
