@@ -451,16 +451,29 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]) {
  @objetivo
     Pesquisar quantas vezes um determinado caracter ocorre em um texto
  @entrada
-    uma string texto, um caracter c e um inteiro que informa se é uma pesquisa Case Sensitive ou não. Se isCaseSensitive = 1, a pesquisa deve considerar diferenças entre maiúsculos e minúsculos.
-        Se isCaseSensitive != 1, a pesquisa não deve  considerar diferenças entre maiúsculos e minúsculos.
+    uma string texto, um caracter c e um inteiro que informa se é uma pesquisa Case Sensitive ou não. 
+    Se isCaseSensitive = 1, a pesquisa deve considerar diferenças entre maiúsculos e minúsculos.
+    Se isCaseSensitive != 1, a pesquisa não deve  considerar diferenças entre maiúsculos e minúsculos.
  @saida
     Um número n >= 0.
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = -1;
-    
-
+    int qtdOcorrencias = 0;
+    if (isCaseSensitive == 1) {
+      for (int i = 0; i < strlen(texto); i++) {
+        if (texto[i] == c) {
+          qtdOcorrencias += 1;
+        }
+      }
+    }
+    else {
+      for (int i = 0; i < strlen(texto); i++) {
+        if (texto[i] == c || texto[i] == c + 32 || texto[i] == c - 32) {
+          qtdOcorrencias += 1;
+        }
+      }
+    }
     return qtdOcorrencias;
 }
 
@@ -472,7 +485,12 @@ int q3(char *texto, char c, int isCaseSensitive)
     uma string texto base (strTexto), uma string strBusca e um vetor de inteiros (posicoes) que irá guardar as posições de início e fim de cada ocorrência da palavra (strBusca) no texto base (texto).
  @saida
     Um número n >= 0 correspondente a quantidade de ocorrências encontradas.
-    O vetor posicoes deve ser preenchido com cada entrada e saída correspondente. Por exemplo, se tiver uma única ocorrência, a posição 0 do vetor deve ser preenchido com o índice de início do texto, e na posição 1, deve ser preenchido com o índice de fim da ocorrencias. Se tiver duas ocorrências, a segunda ocorrência será amazenado nas posições 2 e 3, e assim consecutivamente. Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
+    O vetor posicoes deve ser preenchido com cada entrada e saída correspondente. Por exemplo, 
+    se tiver uma única ocorrência, a posição 0 do vetor deve ser preenchido com o índice de início 
+    do texto, e na posição 1, deve ser preenchido com o índice de fim da ocorrencias. Se tiver duas 
+    ocorrências, a segunda ocorrência será amazenado nas posições 2 e 3, e assim consecutivamente. 
+    Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência 
+    da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
         posicoes[0] = 13;
         posicoes[1] = 16;
         Observe que o índice da posição no texto deve começar ser contado a partir de 1.
@@ -481,8 +499,30 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = -1;
+    int i, j;
+    int posicao = 0;
+    int qtdOcorrencias = 0;
+    int tamanhoTexto = strlen(strTexto);
+    int tamanhoBusca = strlen(strBusca);
 
+    int match = 1;
+    for (i = 0; i <= tamanhoTexto - tamanhoBusca; i++) {
+      match = 1;
+      if (strTexto[i] == strBusca[0]) {
+        for (j = 0; j < tamanhoBusca; j++) {
+          if (strTexto[i + j] != strBusca[j]) {
+            match = 0;
+            break;
+          }
+        }
+        if (match) {
+            posicoes[posicao] = i + 1;  
+            posicoes[posicao + 1] = i + tamanhoBusca;
+            posicao += 2;
+            qtdOcorrencias++;
+        }
+      }
+    }
     return qtdOcorrencias;
 }
 
