@@ -252,10 +252,10 @@ int q1(char data[]) {
   int dia, mes, ano;
 
   // Separa os campos da data 
-  dia = (data[0] - '0') * 10 + (data[1] - '0');
-  mes = (data[3] - '0') * 10 + (data[4] - '0');
-  ano = (data[6] - '0') * 1000 + (data[7] - '0') * 100 +
-        (data[8] - '0') * 10 + (data[9] - '0');
+  dia = (strDia[0] - '0') * 10 + (strDia[1] - '0');
+  mes = (strMes[0] - '0') * 10 + (strMes[1] - '0');
+  ano = (strAno[0] - '0') * 1000 + (strAno[1] - '0') * 100 +
+        (strAno[2] - '0') * 10 + (strAno[3] - '0');
 
   // Verifica se o dia está no intervalo válido
   if (dia < 1 || dia > 31) {
@@ -459,6 +459,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]) {
 int q3(char *texto, char c, int isCaseSensitive)
 {
     int qtdOcorrencias = -1;
+    
 
     return qtdOcorrencias;
 }
