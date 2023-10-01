@@ -96,7 +96,6 @@ void testQ2()
     printf("%d\n", dma.qtdDias == 0);
     printf("%d\n", dma.qtdMeses == 0);
     printf("%d\n", dma.qtdAnos == 1);
-    printf("\nAno:%d   mes: %d     dia: %d\n", dma.qtdAnos, dma.qtdMeses, dma.qtdDias);
 
     //teste 2 - retornos
     qtdDias = -1;

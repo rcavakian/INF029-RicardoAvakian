@@ -397,7 +397,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]) {
         // calcular numero de anos entre as datas
         //perguntar ao professor se posso colocar tudo em um if com o primeiro if envolto em parenteses 
         //e o else if tambem ambos separados por um ou ||
-        printf("\nEntrou no esle para calcular a qtde de anos, meses e dias\n");
+        // printf("\nEntrou no esle para calcular a qtde de anos, meses e dias\n");
         dma.qtdAnos = dqFinal.iAno - dqInicial.iAno;
         if ((dqInicial.iMes > dqFinal.iMes) || (dqInicial.iMes == dqFinal.iMes && dqInicial.iDia > dqFinal.iDia)) {
           dma.qtdAnos -= 1;
