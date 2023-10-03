@@ -25,6 +25,9 @@
 #include "RicardoCamilloAvakian_20221160033.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
+#include <math.h>
+
 
 /*
 ## função utilizada para testes  ##
@@ -317,7 +320,7 @@ int q1(char data[]) {
   // Termino da minha logica
 }
 
-// função auxiliar na Q2 para determinar quantos dias tem em um mes
+// função auxiliar na q2 para determinar quantos dias tem em um mes
 int calcularDias(int mes, int ano) {
   switch (mes)
   {
@@ -430,20 +433,20 @@ DiasMesesAnos q2(char datainicial[], char datafinal[]) {
         }
         else if (dma.qtdAnos >= 1 && dqInicial.iMes < dqFinal.iMes && dqInicial.iDia > dqFinal.iDia) {
           dma.qtdMeses = dqFinal.iMes - dqInicial.iMes - 1;
-          dma.qtdDias = calcularDias(dqInicial.iMes, dqInicial.iAno) - dqInicial.iDia + dqFinal.iDia;        
+          dma.qtdDias = calcularDias(dqInicial.iMes, dqInicial.iAno) - dqInicial.iDia + dqFinal.iDia;
+          if (validaAnoBissexto(dqInicial.iAno) && !validaAnoBissexto(dqFinal.iAno)){
+            dma.qtdDias -= 1;
+          }
+          else if (!validaAnoBissexto(dqInicial.iAno) && validaAnoBissexto(dqFinal.iAno)) {
+            dma.qtdDias += 1;
+          }        
         }
-
       }
-      
-      //calcule a distancia entre as datas
-
-
       //se tudo der certo
       dma.retorno = 1;
       return dma;
-      
+  
     }
-    
 }
 
 /*
@@ -497,33 +500,66 @@ int q3(char *texto, char c, int isCaseSensitive)
         O retorno da função, n, nesse caso seria 1;
 
  */
-int q4(char *strTexto, char *strBusca, int posicoes[30])
-{
-    int i, j;
+int q4(char *strTexto, char *strBusca, int posicoes[30]) {
+    
+    int j, k;
+    int charEspecial = 0;
     int posicao = 0;
     int qtdOcorrencias = 0;
-    int tamanhoTexto = strlen(strTexto);
-    int tamanhoBusca = strlen(strBusca);
+    int tamanhoTexto = 0;
+    int tamanhoBusca = 0;
 
-    int match = 1;
-    for (i = 0; i <= tamanhoTexto - tamanhoBusca; i++) {
-      match = 1;
-      if (strTexto[i] == strBusca[0]) {
-        for (j = 0; j < tamanhoBusca; j++) {
-          if (strTexto[i + j] != strBusca[j]) {
-            match = 0;
+    char strTextoTratado[250];
+    char strBuscaTratado[50];
+
+    // loop para eliminar a posição -61 que caracteres especiais possuem
+    k = 0;
+    for (int l = 0; l != '\0'; l++) {
+      if (strTexto[l] != -61) {
+        strTextoTratado[k] = strTexto[l];
+        k++;
+      }
+    }
+    k = 0;
+    for (int l = 0; l != '\0'; l++) {
+      if (strBusca[l] != -61) {
+        strBuscaTratado[k] = strBusca[l];
+        k++;
+      }
+    }
+
+    // loop para determinar o tamanho do parametro strTexto
+    while (strTextoTratado[tamanhoTexto] != '\0') {
+      tamanhoTexto++;
+    }
+    // loop para determinar o tamanho do parametro strBusca
+    while (strBuscaTratado[tamanhoBusca] != '\0') {
+      tamanhoBusca++;
+    }
+    printf("\nTamanhoBusca: %d, TamanhoTexto: %d\n", tamanhoBusca, tamanhoTexto);
+    
+    for (int i = 0; i <= tamanhoTexto - tamanhoBusca; i++) {
+      if (strTextoTratado[i] == -61) {
+        charEspecial++;
+      }
+      if (strTextoTratado[i] == strBuscaTratado[0]) {
+        
+        for (j = 1; j < tamanhoBusca; j++) {
+          if (strTextoTratado[i + j] != strBuscaTratado[j]) {
             break;
           }
         }
-        if (match) {
-            posicoes[posicao] = i + 1;  
-            posicoes[posicao + 1] = i + tamanhoBusca;
+        printf("\ni = %d -- j = %d\n", i,j);
+        if (j == tamanhoBusca) {
+            posicoes[posicao] = i + 1 - charEspecial;
+            posicoes[posicao + 1] = i + tamanhoBusca  - charEspecial;
+            printf("\nPosicao: %d, i = %d, TamanhoBusca: %d, j = %d\n", posicao, i, tamanhoBusca, j);
             posicao += 2;
             qtdOcorrencias++;
         }
       }
     }
-    return qtdOcorrencias;
+  return qtdOcorrencias;
 }
 
 /*
@@ -538,8 +574,24 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
-
-    return num;
+    int inverso = 0;
+    if (num >= 0) {
+      while (num > 0) {
+        int digito = num % 10;
+        inverso = (inverso * 10) + digito;
+        num /= 10;
+      }
+    }
+    else if (num < 0) {
+      num = -num;
+      while (num > 0) {
+        int digito = num % 10;
+        inverso = (inverso * 10) + digito;
+        num /= 10;
+      }
+      inverso = -inverso;
+    }
+    return inverso;
 }
 
 /*
@@ -552,8 +604,39 @@ int q5(int num)
     Quantidade de vezes que número de busca ocorre em número base
  */
 
-int q6(int numerobase, int numerobusca)
-{
-    int qtdOcorrencias;
+int q6(int numerobase, int numerobusca) {
+    int qtdOcorrencias = 0; 
+    long long int digitosBusca = 0;
+    long long int modal = 10;
+    long long int longBase = numerobase;
+    long long int longBusca = numerobusca;
+
+    // loop para descobrir quantos digitos existem no numerobusca para definar o tamanho do expoente da base 10
+    if (numerobusca == 0) {
+      digitosBusca = 1;
+    }
+    else {
+      while (numerobusca != 0) {
+        digitosBusca++;
+        numerobusca /= 10;
+      }
+    } 
+
+    // loop para determinar o valor do modal a ser utilizado no loop subsequente
+    for (int i = 0; i < digitosBusca - 1; i++) {
+      modal *= 10;
+    }
+
+    // loop que utiliza operador modal para verificar se o resto é igual ao numerobusca 
+    while(longBase != 0) {
+      long long int match = longBase % modal;
+      if (longBusca == match) {
+        qtdOcorrencias++;
+        longBase = longBase / modal;
+      }
+      else {
+        longBase = longBase / 10;
+      }
+    }
     return qtdOcorrencias;
 }
