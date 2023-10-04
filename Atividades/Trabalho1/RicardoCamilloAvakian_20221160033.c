@@ -25,9 +25,6 @@
 #include "RicardoCamilloAvakian_20221160033.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
-#include <math.h>
-
 
 /*
 ## função utilizada para testes  ##
@@ -322,33 +319,32 @@ int q1(char data[]) {
 
 // função auxiliar na q2 para determinar quantos dias tem em um mes
 int calcularDias(int mes, int ano) {
-  switch (mes)
-  {
-  case 1: 
-  case 3:
-  case 5:
-  case 7:
-  case 8:
-  case 10:
-  case 12:
-    return 31;
-    break;
-  case 4:
-  case 6:
-  case 9:
-  case 11:
-    return 30;
-    break;
-  case 2:
-    if (validaAnoBissexto(ano)){
-      return 29;
-    }
-    else {
-      return 28;
-    }
-  default:
-    return -1;
-    break;
+  switch (mes) {
+    case 1: 
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+      return 31;
+      break;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      return 30;
+      break;
+    case 2:
+      if (validaAnoBissexto(ano)){
+        return 29;
+      }
+      else {
+        return 28;
+      }
+    default:
+      return -1;
+      break;
   }
 }
 
@@ -509,24 +505,30 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]) {
     int tamanhoTexto = 0;
     int tamanhoBusca = 0;
 
-    char strTextoTratado[250];
-    char strBuscaTratado[50];
+    char *strTextoTratado = (char *)malloc(strlen(strTexto) * sizeof(char));
+    char *strBuscaTratado = (char *)malloc(strlen(strBusca) * sizeof(char));
 
     // loop para eliminar a posição -61 que caracteres especiais possuem
     k = 0;
-    for (int l = 0; l != '\0'; l++) {
+    for (int l = 0; l < strlen(strTexto); l++) {
       if (strTexto[l] != -61) {
+        // printf("%c", strTexto[l]);
         strTextoTratado[k] = strTexto[l];
         k++;
       }
     }
+    strTextoTratado[k] = '\0';
+    // printf("\nTamanho de strTextoTratado = %d\n", k);
     k = 0;
-    for (int l = 0; l != '\0'; l++) {
+    for (int l = 0; l < strlen(strBusca); l++) {
       if (strBusca[l] != -61) {
         strBuscaTratado[k] = strBusca[l];
         k++;
       }
     }
+    strBuscaTratado[k] = '\0';
+    // printf("\nTamanho de strBuscaTratado = %d\n", k);
+
 
     // loop para determinar o tamanho do parametro strTexto
     while (strTextoTratado[tamanhoTexto] != '\0') {
@@ -536,7 +538,7 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]) {
     while (strBuscaTratado[tamanhoBusca] != '\0') {
       tamanhoBusca++;
     }
-    printf("\nTamanhoBusca: %d, TamanhoTexto: %d\n", tamanhoBusca, tamanhoTexto);
+    // printf("\nTamanhoBusca: %d, TamanhoTexto: %d\n", tamanhoBusca, tamanhoTexto);
     
     for (int i = 0; i <= tamanhoTexto - tamanhoBusca; i++) {
       if (strTextoTratado[i] == -61) {
@@ -549,13 +551,14 @@ int q4(char *strTexto, char *strBusca, int posicoes[30]) {
             break;
           }
         }
-        printf("\ni = %d -- j = %d\n", i,j);
+        // printf("\ni = %d -- j = %d\n", i,j);
         if (j == tamanhoBusca) {
             posicoes[posicao] = i + 1 - charEspecial;
             posicoes[posicao + 1] = i + tamanhoBusca  - charEspecial;
-            printf("\nPosicao: %d, i = %d, TamanhoBusca: %d, j = %d\n", posicao, i, tamanhoBusca, j);
+            // printf("\nPosicao: %d, i = %d, TamanhoBusca: %d, j = %d\n", posicao, i, tamanhoBusca, j);
             posicao += 2;
             qtdOcorrencias++;
+            i = i + j - 1;
         }
       }
     }
