@@ -17,21 +17,37 @@ Rertono (int)
     SEM_ESPACO_DE_MEMORIA - Sem espaço de memória
     TAMANHO_INVALIDO - o tamanho deve ser maior ou igual a 1
 */
-int criarEstruturaAuxiliar(int posicao, int tamanho)
-{
+int criarEstruturaAuxiliar(int posicao, int tamanho) {
 
+    
     int retorno = 0;
     // a posicao pode já existir estrutura auxiliar
+    if (vetorPrincipal[posicao - 1] != 0)
     retorno = JA_TEM_ESTRUTURA_AUXILIAR;
+    
     // se posição é um valor válido {entre 1 e 10}
-    retorno = POSICAO_INVALIDA;
+    if (posicao < 1 || posicao > 10) {
+        retorno = POSICAO_INVALIDA;
+    }
+    
     // o tamanho ser muito grande
     retorno = SEM_ESPACO_DE_MEMORIA;
-    // o tamanho nao pode ser menor que 1
-    retorno = TAMANHO_INVALIDO;
-    // deu tudo certo, crie
-    retorno = SUCESSO;
 
+    // o tamanho nao pode ser menor que 1
+    else if (tamanho < 1) {
+        retorno = TAMANHO_INVALIDO;
+    }
+    // deu tudo certo, crie
+    else {
+        // criando um ponteiro
+        int *ponteiroVetor; 
+        // criando estrutura auxiliar no tamanho informado com uma posição a mais para armazenar o '\0'
+        int *estruturaAux = malloc(tamanho * sizeof(int));
+        ponteiroVetor = estruturaAux;
+        vetorPrincipal[posicao - 1] = ponteiroVetor;
+        retorno = SUCESSO;
+    }
+    
     return retorno;
 }
 
@@ -265,6 +281,9 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 void inicializar()
 {
+    for (int i = 0; i < TAM; i++) {
+        vetorPrincipal[i] = NULL;
+    }
 }
 
 /*
