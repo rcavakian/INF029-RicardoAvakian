@@ -22,8 +22,9 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
     
     int retorno = 0;
     // a posicao pode já existir estrutura auxiliar
-    if (vetorPrincipal[posicao - 1] != 0)
-    retorno = JA_TEM_ESTRUTURA_AUXILIAR;
+    if (vetorPrincipal[posicao - 1] != NULL) {
+        retorno = JA_TEM_ESTRUTURA_AUXILIAR;
+    }
     
     // se posição é um valor válido {entre 1 e 10}
     if (posicao < 1 || posicao > 10) {
@@ -31,6 +32,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
     }
     
     // o tamanho ser muito grande
+    // duvida aqui para perguntar para o professor
     retorno = SEM_ESPACO_DE_MEMORIA;
 
     // o tamanho nao pode ser menor que 1
