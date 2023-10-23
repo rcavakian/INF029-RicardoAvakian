@@ -37,10 +37,10 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
         return retorno;
     }
     // o tamanho ser muito grande
-    else if (!vetorPrincipal[posicao - 1].ponteiroEstrutura) {
-        retorno = SEM_ESPACO_DE_MEMORIA;
-        return retorno;
-    }
+    // else if (!vetorPrincipal[posicao - 1].ponteiroEstrutura) {
+    //     retorno = SEM_ESPACO_DE_MEMORIA;
+    //     return retorno;
+    // }
     // deu tudo certo, crie
     else {
         // criando estrutura auxiliar no tamanho informado e alocando memoria para a estrutura auxiliar de inteiros
