@@ -54,6 +54,8 @@ void testeCriarEstrutura()
     printf("%d\n", criarEstruturaAuxiliar(2, -5) == TAMANHO_INVALIDO);
     printf("%d\n", criarEstruturaAuxiliar(2, 0) == TAMANHO_INVALIDO);
     printf("%d\n", criarEstruturaAuxiliar(2, 3) == SUCESSO);
+    // meu print para saber qual foi o retorno
+    printf("Valor do retorno : %d\n", criarEstruturaAuxiliar(2, 3));
     printf("%d\n", criarEstruturaAuxiliar(2, 6) == JA_TEM_ESTRUTURA_AUXILIAR);
 }
 /*
