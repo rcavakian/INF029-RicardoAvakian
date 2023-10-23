@@ -31,7 +31,8 @@
         "stdio.h": "c",
         "ferramentas.h": "c",
         "cstring": "c",
-        "locale": "c"
+        "locale": "c",
+        "estruturavetores.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

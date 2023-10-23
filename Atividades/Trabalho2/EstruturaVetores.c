@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "estrutura.h"
+#include "EstruturaVetores.h"
 #define TAM 10
 
-#include "EstruturaVetores.h"
 
-int vetorPrincipal[TAM];
+
+estruturaAux vetorPrincipal[TAM];
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -18,38 +20,37 @@ Rertono (int)
     TAMANHO_INVALIDO - o tamanho deve ser maior ou igual a 1
 */
 int criarEstruturaAuxiliar(int posicao, int tamanho) {
-
-    
     int retorno = 0;
     // a posicao pode já existir estrutura auxiliar
-    if (vetorPrincipal[posicao - 1] != NULL) {
+    if (vetorPrincipal[posicao - 1].ponteiroEstrutura != NULL) {
         retorno = JA_TEM_ESTRUTURA_AUXILIAR;
     }
-    
     // se posição é um valor válido {entre 1 e 10}
     if (posicao < 1 || posicao > 10) {
         retorno = POSICAO_INVALIDA;
     }
-    
     // o tamanho ser muito grande
-    // duvida aqui para perguntar para o professor
-    retorno = SEM_ESPACO_DE_MEMORIA;
-
+    if (!vetorPrincipal[posicao - 1].ponteiroEstrutura) {
+        retorno = SEM_ESPACO_DE_MEMORIA;
+    }
     // o tamanho nao pode ser menor que 1
-    else if (tamanho < 1) {
+    if (tamanho < 1) {
         retorno = TAMANHO_INVALIDO;
     }
     // deu tudo certo, crie
     else {
-        // criando um ponteiro
-        int *ponteiroVetor; 
-        // criando estrutura auxiliar no tamanho informado com uma posição a mais para armazenar o '\0'
-        int *estruturaAux = malloc(tamanho * sizeof(int));
-        ponteiroVetor = estruturaAux;
-        vetorPrincipal[posicao - 1] = ponteiroVetor;
-        retorno = SUCESSO;
+        // criando estrutura auxiliar no tamanho informado e alocando memoria para a estrutura auxiliar de inteiros
+        int *vetorInteiros = malloc(tamanho * sizeof(int));
+        if (!vetorInteiros) {
+            retorno = SEM_ESPACO_DE_MEMORIA;
+        } else {
+            // atribuindo a variavel da struct o tamanho da estrutura auxliar
+            vetorPrincipal[posicao - 1].tamanho = tamanho;
+            // alocando memoria para o pontei        // apontando o ponteiro para a estrutura auxiliar
+            vetorPrincipal[posicao - 1].ponteiroEstrutura = vetorInteiros;
+            retorno = SUCESSO;
+        }
     }
-    
     return retorno;
 }
 
@@ -284,7 +285,9 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 void inicializar()
 {
     for (int i = 0; i < TAM; i++) {
-        vetorPrincipal[i] = NULL;
+        vetorPrincipal[i].tamanho = 0;
+        vetorPrincipal[i].quantidade = 0;
+        vetorPrincipal[i].ponteiroEstrutura = NULL;
     }
 }
 
@@ -294,6 +297,11 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 */
 
-void finalizar()
-{
+void finalizar() {
+    for (int i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i].ponteiroEstrutura != NULL) {
+            free(vetorPrincipal[i].ponteiroEstrutura);
+            vetorPrincipal[i].ponteiroEstrutura = NULL;
+        } 
+    }
 }
