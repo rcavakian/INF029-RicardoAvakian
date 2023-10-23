@@ -24,18 +24,22 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
     // a posicao pode já existir estrutura auxiliar
     if (vetorPrincipal[posicao - 1].ponteiroEstrutura != NULL) {
         retorno = JA_TEM_ESTRUTURA_AUXILIAR;
+        return retorno;
     }
     // se posição é um valor válido {entre 1 e 10}
     if (posicao < 1 || posicao > 10) {
         retorno = POSICAO_INVALIDA;
+        return retorno;
     }
     // o tamanho ser muito grande
     if (!vetorPrincipal[posicao - 1].ponteiroEstrutura) {
         retorno = SEM_ESPACO_DE_MEMORIA;
+        return retorno;
     }
     // o tamanho nao pode ser menor que 1
     if (tamanho < 1) {
         retorno = TAMANHO_INVALIDO;
+        return retorno;
     }
     // deu tudo certo, crie
     else {
@@ -43,12 +47,14 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
         int *vetorInteiros = malloc(tamanho * sizeof(int));
         if (!vetorInteiros) {
             retorno = SEM_ESPACO_DE_MEMORIA;
+            return retorno;
         } else {
             // atribuindo a variavel da struct o tamanho da estrutura auxliar
             vetorPrincipal[posicao - 1].tamanho = tamanho;
             // alocando memoria para o pontei        // apontando o ponteiro para a estrutura auxiliar
             vetorPrincipal[posicao - 1].ponteiroEstrutura = vetorInteiros;
             retorno = SUCESSO;
+            return retorno;
         }
     }
     return retorno;
