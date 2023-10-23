@@ -31,14 +31,14 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
         retorno = POSICAO_INVALIDA;
         return retorno;
     }
-    // o tamanho ser muito grande
-    if (!vetorPrincipal[posicao - 1].ponteiroEstrutura) {
-        retorno = SEM_ESPACO_DE_MEMORIA;
-        return retorno;
-    }
     // o tamanho nao pode ser menor que 1
     if (tamanho < 1) {
         retorno = TAMANHO_INVALIDO;
+        return retorno;
+    }
+    // o tamanho ser muito grande
+    else if (!vetorPrincipal[posicao - 1].ponteiroEstrutura) {
+        retorno = SEM_ESPACO_DE_MEMORIA;
         return retorno;
     }
     // deu tudo certo, crie
