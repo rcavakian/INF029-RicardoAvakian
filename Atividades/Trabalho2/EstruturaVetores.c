@@ -80,11 +80,10 @@ int inserirNumeroEmEstrutura(int posicao, int valor) {
         // testar se existe a estrutura auxiliar
         if (vetorPrincipal[posicao - 1].ponteiroEstrutura != NULL)
         {
-            if (vetorPrincipal[posicao - 1].tamanho > vetorPrincipal[posicao -1].quantidade)
-            {
+            if (vetorPrincipal[posicao - 1].tamanho > vetorPrincipal[posicao -1].quantidade) {
                 //insere
                 vetorPrincipal[posicao - 1].ponteiroEstrutura[vetorPrincipal->quantidade] = valor;
-                vetorPrincipal[posicao - 1].tamanho += 1; 
+                vetorPrincipal[posicao - 1].quantidade += 1; 
                 retorno = SUCESSO;
                 return retorno;
             }
