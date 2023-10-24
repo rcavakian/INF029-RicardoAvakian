@@ -83,7 +83,7 @@ int inserirNumeroEmEstrutura(int posicao, int valor) {
             if (vetorPrincipal[posicao - 1].tamanho > vetorPrincipal[posicao -1].quantidade) {
                 //insere
                 vetorPrincipal[posicao - 1].ponteiroEstrutura[vetorPrincipal->quantidade] = valor;
-                vetorPrincipal[posicao - 1].quantidade += 1; 
+                vetorPrincipal[posicao - 1].quantidade = vetorPrincipal[posicao - 1].quantidade + 1; 
                 retorno = SUCESSO;
                 return retorno;
             }
