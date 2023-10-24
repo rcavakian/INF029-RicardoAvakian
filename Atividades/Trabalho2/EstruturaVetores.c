@@ -36,15 +36,11 @@ int criarEstruturaAuxiliar(int posicao, int tamanho) {
         retorno = TAMANHO_INVALIDO;
         return retorno;
     }
-    // o tamanho ser muito grande
-    // else if (!vetorPrincipal[posicao - 1].ponteiroEstrutura) {
-    //     retorno = SEM_ESPACO_DE_MEMORIA;
-    //     return retorno;
-    // }
     // deu tudo certo, crie
     else {
         // criando estrutura auxiliar no tamanho informado e alocando memoria para a estrutura auxiliar de inteiros
         int *vetorInteiros = malloc(tamanho * sizeof(int));
+        // o tamanho ser muito grande
         if (!vetorInteiros) {
             retorno = SEM_ESPACO_DE_MEMORIA;
             return retorno;
@@ -76,29 +72,34 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     int temEspaco = 0;
     int posicao_invalida = 0;
 
-    if (posicao_invalida)
+    // teste para saber se a posicao inserida esta entre 1 e 10
+    if (posicao < 1 || posicao > 10) {
         retorno = POSICAO_INVALIDA;
-    else
-    {
+        return retorno; 
+    }
+    else {
         // testar se existe a estrutura auxiliar
-        if (existeEstruturaAuxiliar)
+        if (vetorPrincipal[posicao - 1].ponteiroEstrutura != NULL)
         {
-            if (temEspaco)
+            if (vetorPrincipal[posicao - 1].tamanho > vetorPrincipal[posicao -1].quantidade)
             {
                 //insere
+                vetorPrincipal[posicao - 1].ponteiroEstrutura[vetorPrincipal->quantidade] = valor; 
                 retorno = SUCESSO;
+                return retorno;
             }
             else
             {
                 retorno = SEM_ESPACO;
+                return retorno;
             }
         }
         else
         {
             retorno = SEM_ESTRUTURA_AUXILIAR;
+            return retorno;
         }
     }
-
     return retorno;
 }
 
