@@ -171,7 +171,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
                 }
                 break;
             }
-            if (valorLocalizado) {
+            if (valorLocalizado == 1) {
                 retorno = SUCESSO;
                 return retorno;
             }
