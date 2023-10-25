@@ -110,13 +110,29 @@ Obs. Esta é uma exclusão lógica
 Rertono (int)
     SUCESSO - excluido com sucesso
     ESTRUTURA_AUXILIAR_VAZIA - estrutura vazia
-    SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
-    POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
+    SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar ok
+    POSICAO_INVALIDA - Posição inválida para estrutura auxiliar ok
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-    int retorno = SUCESSO;
-    return retorno;
+    int retorno = 0;
+    if (posicao < 1 || posicao > 10) {
+        retorno = POSICAO_INVALIDA;
+        return retorno;
+    }
+    else if (vetorPrincipal[posicao - 1].ponteiroEstrutura == NULL) {
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno;
+    }
+    else if (vetorPrincipal[posicao - 1].quantidade == 0) {
+        retorno = ESTRUTURA_AUXILIAR_VAZIA;
+        return retorno;
+    }
+    else {
+        vetorPrincipal[posicao - 1].quantidade--;
+        retorno = SUCESSO;
+        return retorno;
+    }
 }
 
 /*
