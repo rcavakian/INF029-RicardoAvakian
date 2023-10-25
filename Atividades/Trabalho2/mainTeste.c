@@ -99,7 +99,11 @@ void testeExcluirNumeroEspecifico()
     printf("%d\n", inserirNumeroEmEstrutura(9, 4) == SUCESSO);
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 12) == NUMERO_INEXISTENTE);
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 7) == SUCESSO);
+    // print meu para ppoder identificar qual o valor do retorno
+    printf("valor do retorno : %d\n", excluirNumeroEspecificoDeEstrutura(9, 7));
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 4) == SUCESSO);
+    // print meu para ppoder identificar qual o valor do retorno
+    printf("valor do retorno : %d\n", excluirNumeroEspecificoDeEstrutura(9, 4));
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(1, 2) == SEM_ESTRUTURA_AUXILIAR);
 }
 /*

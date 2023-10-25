@@ -147,8 +147,7 @@ Rertono (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 
 */
-int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
-{
+int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
     int retorno = 0;
     if (posicao < 1 || posicao > 10) {
         retorno = POSICAO_INVALIDA;
