@@ -108,13 +108,12 @@ ex: suponha os valores [3, 8, 7, 9,  ,  ]. Após excluir, a estrutura deve ficar
 Obs. Esta é uma exclusão lógica
 
 Rertono (int)
-    SUCESSO - excluido com sucesso
-    ESTRUTURA_AUXILIAR_VAZIA - estrutura vazia
+    SUCESSO - excluido com sucesso ok
+    ESTRUTURA_AUXILIAR_VAZIA - estrutura vazia ok
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar ok
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar ok
 */
-int excluirNumeroDoFinaldaEstrutura(int posicao)
-{
+int excluirNumeroDoFinaldaEstrutura(int posicao) {
     int retorno = 0;
     if (posicao < 1 || posicao > 10) {
         retorno = POSICAO_INVALIDA;
@@ -150,7 +149,39 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
-    int retorno = SUCESSO;
+    int retorno = 0;
+    if (posicao < 1 || posicao > 10) {
+        retorno = POSICAO_INVALIDA;
+        return retorno;
+    }
+    else if (vetorPrincipal[posicao - 1].ponteiroEstrutura == NULL) {
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno;
+    }
+    else if (vetorPrincipal[posicao - 1].quantidade == 0) {
+        retorno = ESTRUTURA_AUXILIAR_VAZIA;
+        return retorno;
+    }
+    else {
+        int valorLocalizado = 0;
+        for (int i = 0; i < vetorPrincipal[posicao - 1].quantidade; i++) {
+            if (vetorPrincipal[posicao - 1].ponteiroEstrutura[i] == valor) {
+                valorLocalizado = 1;
+                for (int j = i; j < vetorPrincipal[posicao - 1].quantidade - 1; j++) {
+                    vetorPrincipal[posicao - 1].ponteiroEstrutura[j] = vetorPrincipal[posicao - 1].ponteiroEstrutura[j + 1];
+                }
+                break;
+            }
+            if (valorLocalizado) {
+                retorno = SUCESSO;
+                return retorno;
+            }
+            else {
+                retorno = NUMERO_INEXISTENTE;
+                return retorno;
+            }
+        }
+    }
     return retorno;
 }
 
