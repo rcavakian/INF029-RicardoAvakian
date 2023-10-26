@@ -3,6 +3,8 @@
 
 #include "EstruturaVetores.h"
 
+// gcc EstruturaVetores.c mainTeste.c estrutura.c -o t2
+
 void show_log(char *str);
 
 void testeInserirSemNada();
@@ -97,6 +99,8 @@ void testeExcluirNumeroEspecifico()
     printf("%d\n", criarEstruturaAuxiliar(9, 3) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(9, 7) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(9, 4) == SUCESSO);
+    // chamada de funcao para saber se a função testeInserirComEstrutura() esta funcionando
+    imprimirVetorAux(9);
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 12) == NUMERO_INEXISTENTE);
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 7) == SUCESSO);
     // print meu para ppoder identificar qual o valor do retorno
@@ -104,6 +108,8 @@ void testeExcluirNumeroEspecifico()
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 4) == SUCESSO);
     // print meu para ppoder identificar qual o valor do retorno
     printf("valor do retorno : %d\n", excluirNumeroEspecificoDeEstrutura(9, 4));
+    // chamada de funcao para saber se a função testeInserirComEstrutura() esta funcionando
+    imprimirVetorAux(9);
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(1, 2) == SEM_ESTRUTURA_AUXILIAR);
 }
 /*

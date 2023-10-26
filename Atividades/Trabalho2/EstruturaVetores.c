@@ -78,23 +78,21 @@ int inserirNumeroEmEstrutura(int posicao, int valor) {
     }
     else {
         // testar se existe a estrutura auxiliar
-        if (vetorPrincipal[posicao - 1].ponteiroEstrutura != NULL)
-        {
+        if (vetorPrincipal[posicao - 1].ponteiroEstrutura != NULL) {
             if (vetorPrincipal[posicao - 1].tamanho > vetorPrincipal[posicao -1].quantidade) {
                 //insere
-                vetorPrincipal[posicao - 1].ponteiroEstrutura[vetorPrincipal->quantidade] = valor;
-                vetorPrincipal[posicao - 1].quantidade = vetorPrincipal[posicao - 1].quantidade + 1; 
+                int indice = vetorPrincipal[posicao - 1].quantidade;
+                vetorPrincipal[posicao - 1].ponteiroEstrutura[indice] = valor;
+                vetorPrincipal[posicao - 1].quantidade++; 
                 retorno = SUCESSO;
                 return retorno;
             }
-            else
-            {
+            else {
                 retorno = SEM_ESPACO;
                 return retorno;
             }
         }
-        else
-        {
+        else {
             retorno = SEM_ESTRUTURA_AUXILIAR;
             return retorno;
         }
@@ -163,15 +161,16 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
     }
     else {
         int valorLocalizado = 0;
-        for (int i = 0; i < vetorPrincipal[posicao - 1].quantidade; i++) {
+        int indice = vetorPrincipal[posicao - 1].quantidade;
+        for (int i = 0; i < indice; i++) {
             if (vetorPrincipal[posicao - 1].ponteiroEstrutura[i] == valor) {
                 valorLocalizado = 1;
-                for (int j = i; j < vetorPrincipal[posicao - 1].quantidade - 1; j++) {
+                for (int j = i; j < indice - 1; j++) {
                     vetorPrincipal[posicao - 1].ponteiroEstrutura[j] = vetorPrincipal[posicao - 1].ponteiroEstrutura[j + 1];
                 }
                 break;
             }
-            if (valorLocalizado == 1) {
+            if (valorLocalizado) {
                 retorno = SUCESSO;
                 return retorno;
             }
@@ -341,6 +340,7 @@ void imprimirVetorAux(int posicao) {
     for (int i = 0; i < vetorPrincipal[posicao-1].quantidade; i++) {
         printf("%d\t", vetorPrincipal[posicao-1].ponteiroEstrutura[i]);
     }
+    printf("\n");
 }
 
 void inicializar()
