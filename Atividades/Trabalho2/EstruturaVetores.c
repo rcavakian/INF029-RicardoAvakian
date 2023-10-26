@@ -165,7 +165,6 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
         for (int i = 0; i < indice; i++) {
             if (vetorPrincipal[posicao - 1].ponteiroEstrutura[i] == valor) {
                 valorLocalizado = 1;
-                printf("ValorLocalizado: %d\n", valorLocalizado);
                 for (int j = i; j < indice - 1; j++) {
                     vetorPrincipal[posicao - 1].ponteiroEstrutura[j] = vetorPrincipal[posicao - 1].ponteiroEstrutura[j + 1];
                 }
