@@ -165,22 +165,23 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
         for (int i = 0; i < indice; i++) {
             if (vetorPrincipal[posicao - 1].ponteiroEstrutura[i] == valor) {
                 valorLocalizado = 1;
+                printf("ValorLocalizado: %d\n", valorLocalizado);
                 for (int j = i; j < indice - 1; j++) {
                     vetorPrincipal[posicao - 1].ponteiroEstrutura[j] = vetorPrincipal[posicao - 1].ponteiroEstrutura[j + 1];
                 }
+                vetorPrincipal[posicao - 1].quantidade--;
                 break;
             }
-            if (valorLocalizado) {
-                retorno = SUCESSO;
-                return retorno;
-            }
-            else {
-                retorno = NUMERO_INEXISTENTE;
-                return retorno;
-            }
+        }
+        if (valorLocalizado) {
+            retorno = SUCESSO;
+            return retorno;
+        }
+        else {
+            retorno = NUMERO_INEXISTENTE;
+            return retorno;
         }
     }
-    return retorno;
 }
 
 // se posição é um valor válido {entre 1 e 10}
