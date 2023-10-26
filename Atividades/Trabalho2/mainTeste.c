@@ -69,8 +69,6 @@ void testeInserirComEstrutura()
     printf("%d\n", inserirNumeroEmEstrutura(2, 4) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, -2) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, 6) == SUCESSO);
-    // chamada de funcao para saber se a função testeInserirComEstrutura() esta funcionando
-    imprimirVetorAux(2);
     printf("%d\n", inserirNumeroEmEstrutura(2, 5) == SEM_ESPACO);
 }
 /*
@@ -99,17 +97,9 @@ void testeExcluirNumeroEspecifico()
     printf("%d\n", criarEstruturaAuxiliar(9, 3) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(9, 7) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(9, 4) == SUCESSO);
-    // chamada de funcao para saber se a função testeInserirComEstrutura() esta funcionando
-    imprimirVetorAux(9);
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 12) == NUMERO_INEXISTENTE);
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 7) == SUCESSO);
-    // print meu para ppoder identificar qual o valor do retorno
-    printf("valor do retorno : %d\n", excluirNumeroEspecificoDeEstrutura(9, 7));
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(9, 4) == SUCESSO);
-    // print meu para ppoder identificar qual o valor do retorno
-    printf("valor do retorno : %d\n", excluirNumeroEspecificoDeEstrutura(9, 4));
-    // chamada de funcao para saber se a função testeInserirComEstrutura() esta funcionando
-    imprimirVetorAux(9);
     printf("%d\n", excluirNumeroEspecificoDeEstrutura(1, 2) == SEM_ESTRUTURA_AUXILIAR);
 }
 /*
