@@ -165,6 +165,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
         for (int i = 0; i < indice; i++) {
             if (vetorPrincipal[posicao - 1].ponteiroEstrutura[i] == valor) {
                 valorLocalizado = 1;
+                // loop para poder deslocar os itens uma posicao a frente para preencher a posicao do valor excluido 
                 for (int j = i; j < indice - 1; j++) {
                     vetorPrincipal[posicao - 1].ponteiroEstrutura[j] = vetorPrincipal[posicao - 1].ponteiroEstrutura[j + 1];
                 }
@@ -205,10 +206,24 @@ Retorno (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
-{
-
+int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
     int retorno = 0;
+    int indice = posicao - 1;
+    if (posicao < 1 || posicao > 10) {
+        retorno = POSICAO_INVALIDA;
+        return retorno;
+    }
+    else if (vetorPrincipal[indice].ponteiroEstrutura == NULL) {
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno;
+    }
+    else {
+        for (int i = 0; i < vetorPrincipal[indice].quantidade; i++) {
+            vetorAux[i] = vetorPrincipal[indice].ponteiroEstrutura[i];
+        }
+        retorno = SUCESSO;
+        return retorno;
+    }
 
     return retorno;
 }
