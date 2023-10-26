@@ -334,6 +334,15 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 */
 
+// função para imprimir o vetor auxiliar depois de inserido todos elementos
+void imprimirVetorAux(int posicao) {
+    printf("Printf p/ saber se a função testeInserirComEstrutura() esta funcionando\n");
+    printf("Elementos da estrutura auxiliar da posicao %d:\n", posicao);
+    for (int i = 0; i < vetorPrincipal[posicao-1].quantidade; i++) {
+        printf("%d\t", vetorPrincipal[posicao-1].ponteiroEstrutura[i]);
+    }
+}
+
 void inicializar()
 {
     for (int i = 0; i < TAM; i++) {

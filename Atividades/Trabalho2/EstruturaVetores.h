@@ -27,6 +27,7 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao);
 No *montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
 void destruirListaEncadeadaComCabecote(No **inicio);
+// função para imprimir o vetor auxiliar depois de inserido todos elementos
 
 void inicializar();
 void finalizar();
