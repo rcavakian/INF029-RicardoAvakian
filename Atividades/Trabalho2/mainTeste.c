@@ -54,8 +54,6 @@ void testeCriarEstrutura()
     printf("%d\n", criarEstruturaAuxiliar(2, -5) == TAMANHO_INVALIDO);
     printf("%d\n", criarEstruturaAuxiliar(2, 0) == TAMANHO_INVALIDO);
     printf("%d\n", criarEstruturaAuxiliar(2, 3) == SUCESSO);
-    // // meu print para saber qual foi o retorno
-    // printf("Valor do retorno : %d\n", criarEstruturaAuxiliar(2, 3));
     printf("%d\n", criarEstruturaAuxiliar(2, 6) == JA_TEM_ESTRUTURA_AUXILIAR);
 }
 /*
@@ -69,6 +67,8 @@ void testeInserirComEstrutura()
     printf("%d\n", inserirNumeroEmEstrutura(2, 4) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, -2) == SUCESSO);
     printf("%d\n", inserirNumeroEmEstrutura(2, 6) == SUCESSO);
+    // chamada de funcao para saber se a função testeInserirComEstrutura() esta funcionando
+    imprimirVetorAux(2);
     printf("%d\n", inserirNumeroEmEstrutura(2, 5) == SEM_ESPACO);
 }
 /*
