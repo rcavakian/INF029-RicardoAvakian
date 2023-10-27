@@ -7,6 +7,7 @@
 
 
 estruturaAux vetorPrincipal[TAM];
+void ordenarVetor(int *vetor, int tamanho);
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -237,12 +238,25 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
-{
-
+int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
     int retorno = 0;
-
-    
+    int indice = posicao - 1;
+    if (posicao < 1 || posicao > 10) {
+        retorno = POSICAO_INVALIDA;
+        return retorno;
+    }
+    else if (vetorPrincipal[indice].ponteiroEstrutura == NULL) {
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno;
+    }
+    else {
+        for (int i = 0; i < vetorPrincipal[indice].quantidade; i++) {
+            vetorAux[i] = vetorPrincipal[indice].ponteiroEstrutura[i];
+        }
+        ordenarVetor(vetorAux, vetorPrincipal[indice].quantidade);
+        retorno = SUCESSO;
+        return retorno;
+    }
     return retorno;
 }
 
@@ -356,6 +370,17 @@ void imprimirVetorAux(int posicao) {
         printf("%d\t", vetorPrincipal[posicao-1].ponteiroEstrutura[i]);
     }
     printf("\n");
+}
+
+void ordenarVetor(int *vetor, int tamanho) {
+    int aux;
+    for (int i = 1; i < tamanho; i++) {
+        aux = vetor[i];
+        for (int j = i - 1; j > 0 && vetor[j] > aux; j--) {
+            vetor[j + 1] = vetor[j];
+        }   
+        vetor[j + 1] = aux;
+    }
 }
 
 void inicializar()
