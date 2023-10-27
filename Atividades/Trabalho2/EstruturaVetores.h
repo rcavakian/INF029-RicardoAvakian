@@ -30,7 +30,7 @@ void destruirListaEncadeadaComCabecote(No **inicio);
 // função para imprimir o vetor auxiliar depois de inserido todos elementos
 void imprimirVetorAux(int posicao);
 // função para ordenar o vetor auxiliar depois de inserido todos elementos
-void ordenarVetor(int *vetor, int tamanho)
+void ordenarVetor(int *vetor, int tamanho);
 void inicializar();
 void finalizar();
 void dobrar(int *x);
