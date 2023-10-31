@@ -268,10 +268,30 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
-{
-
+int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
     int retorno = 0;
+    int vazias = 0;
+    int j, k = 0;
+    for (int i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i].ponteiroEstrutura == NULL) {
+            vazias++;
+        }
+        else {
+            k = 0;
+            for (; j < vetorPrincipal[i].quantidade; j++) {
+                vetorAux[i + j] = vetorPrincipal[i].ponteiroEstrutura[k];
+                k++;
+            }
+        }
+    }
+    if (vazias == TAM) {
+        retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+        return retorno;
+    }
+    else {
+        retorno = SUCESSO;
+        return retorno;
+    }
     return retorno;
 }
 
@@ -285,7 +305,6 @@ Rertono (int)
 */
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
-
     int retorno = 0;
     return retorno;
 }
