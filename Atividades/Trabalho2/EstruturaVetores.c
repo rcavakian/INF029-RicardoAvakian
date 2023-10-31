@@ -376,7 +376,7 @@ void ordenarVetor(int *vetor, int tamanho) {
     int aux, i, j;
     for (i = 1; i < tamanho; i++) {
         aux = vetor[i];
-        for (j = i - 1; j > 0 && vetor[j] > aux; j--) {
+        for (j = i - 1; j >= 0 && vetor[j] > aux; j--) {
             vetor[j + 1] = vetor[j];
         }   
         vetor[j + 1] = aux;
