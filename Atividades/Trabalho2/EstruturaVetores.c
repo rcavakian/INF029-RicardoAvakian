@@ -279,7 +279,7 @@ int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
         }
         else {
             for (j = 0; j < vetorPrincipal[i].quantidade; j++) {
-                vetorAux[i + k] = vetorPrincipal[i].ponteiroEstrutura[j];
+                vetorAux[k] = vetorPrincipal[i].ponteiroEstrutura[j];
                 k++;
             }
         }
