@@ -271,19 +271,20 @@ Rertono (int)
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
     int retorno = 0;
     int vazias = 0;
-    int j, k = 0;
+    int j = 0;
+    int k = 0;
     for (int i = 0; i < TAM; i++) {
-        if (vetorPrincipal[i].ponteiroEstrutura == NULL) {
+        if (vetorPrincipal[i].quantidade == 0) {
             vazias++;
         }
         else {
-            k = 0;
-            for (; j < vetorPrincipal[i].quantidade; j++) {
-                vetorAux[i + j] = vetorPrincipal[i].ponteiroEstrutura[k];
+            for (j = 0; j < vetorPrincipal[i].quantidade; j++) {
+                vetorAux[i + k] = vetorPrincipal[i].ponteiroEstrutura[j];
                 k++;
             }
         }
     }
+    printf("\nVazias: %d\n", vazias);
     if (vazias == TAM) {
         retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
         return retorno;
@@ -292,7 +293,6 @@ int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
         retorno = SUCESSO;
         return retorno;
     }
-    return retorno;
 }
 
 /*
