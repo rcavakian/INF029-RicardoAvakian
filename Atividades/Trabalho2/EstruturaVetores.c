@@ -303,10 +303,31 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
-{
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
     int retorno = 0;
-    return retorno;
+    int vazias = 0;
+    int j = 0;
+    int k = 0;
+    for (int i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i].quantidade == 0) {
+            vazias++;
+        }
+        else {
+            for (j = 0; j < vetorPrincipal[i].quantidade; j++) {
+                vetorAux[k] = vetorPrincipal[i].ponteiroEstrutura[j];
+                k++;
+            }
+        }
+    }
+    if (vazias == TAM) {
+        retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+        return retorno;
+    }
+    else {
+        ordenarVetor(vetorAux, k);
+        retorno = SUCESSO;
+        return retorno;
+    }
 }
 
 /*
@@ -315,16 +336,37 @@ Suponha o tamanho inicial = x, e novo tamanho = n. O tamanho resultante deve ser
 
 Rertono (int)
     SUCESSO - foi modificado corretamente o tamanho da estrutura auxiliar
-    SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
-    POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
-    NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
+    SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar ok
+    POSICAO_INVALIDA - Posição inválida para estrutura auxiliar ok
+    NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo ok
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
-int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
-{
-
+int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
     int retorno = 0;
-    return retorno;
+    int indice = posicao - 1;
+    if (posicao < 1 || posicao > 10) {
+        retorno = POSICAO_INVALIDA;
+        return retorno;
+    }
+    else if (vetorPrincipal[indice].ponteiroEstrutura == NULL) {
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno;
+    }
+    else if (novoTamanho < 0) {
+        retorno = NOVO_TAMANHO_INVALIDO;
+        return retorno;
+    }
+    else {
+        vetorPrincipal[indice].ponteiroEstrutura = realloc(novoTamanho * sizeof(int));
+        if (vetorPrincipal[indice].ponteiroEstrutura == NULL) {
+            retorno = SEM_ESPACO_DE_MEMORIA;
+            return retorno;
+        }
+        else {
+            retorno = SUCESSO;
+            return SUCESSO;
+        }
+    }
 }
 
 /*
