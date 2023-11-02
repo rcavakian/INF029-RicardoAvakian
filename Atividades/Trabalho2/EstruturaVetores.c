@@ -380,12 +380,25 @@ Retorno (int)
     ESTRUTURA_AUXILIAR_VAZIA - estrutura auxiliar vazia
     Um número int > 0 correpondente a quantidade de elementos preenchidos da estrutura
 */
-int getQuantidadeElementosEstruturaAuxiliar(int posicao)
-{
-
+int getQuantidadeElementosEstruturaAuxiliar(int posicao) {
     int retorno = 0;
-
-    return retorno;
+    int indice = posicao - 1;
+    if (posicao < 1 || posicao > 10) {
+        retorno = POSICAO_INVALIDA;
+        return retorno;
+    }
+    else if (vetorPrincipal[indice].ponteiroEstrutura == NULL) {
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno;
+    } 
+    else if (vetorPrincipal[indice].quantidade == 0) {
+        retorno = ESTRUTURA_AUXILIAR_VAZIA;
+        return retorno;
+    }
+    else {
+        retorno = vetorPrincipal[indice].quantidade;
+        return retorno;
+    }
 }
 
 /*
