@@ -361,12 +361,16 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
         vetorPrincipal[indice].ponteiroEstrutura = (int *)realloc(vetorPrincipal[indice].ponteiroEstrutura, novoTam * sizeof(int));
         if (vetorPrincipal[indice].ponteiroEstrutura == NULL) {
             retorno = SEM_ESPACO_DE_MEMORIA;
-            free(vetorPrincipal[indice].ponteiroEstrutura);
+            // free(vetorPrincipal[indice].ponteiroEstrutura);
             return retorno;
         }
         else {
+            vetorPrincipal[indice].tamanho = novoTam;
+            if (vetorPrincipal[indice].tamanho < vetorPrincipal[indice].quantidade) {
+                vetorPrincipal[indice].quantidade = novoTam;
+            }
             retorno = SUCESSO;
-            return SUCESSO;
+            return retorno;
         }
     }
 }
