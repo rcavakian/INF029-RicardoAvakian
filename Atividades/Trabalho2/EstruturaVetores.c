@@ -344,6 +344,7 @@ Rertono (int)
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
     int retorno = 0;
     int indice = posicao - 1;
+    int novoTam = novoTamanho + vetorPrincipal[indice].tamanho;
     if (posicao < 1 || posicao > 10) {
         retorno = POSICAO_INVALIDA;
         return retorno;
@@ -352,14 +353,15 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
         retorno = SEM_ESTRUTURA_AUXILIAR;
         return retorno;
     }
-    else if (novoTamanho < 0) {
+    else if (novoTam <= 0) {
         retorno = NOVO_TAMANHO_INVALIDO;
         return retorno;
     }
     else {
-        vetorPrincipal[indice].ponteiroEstrutura = realloc(novoTamanho * sizeof(int));
+        vetorPrincipal[indice].ponteiroEstrutura = (int *)realloc(vetorPrincipal[indice].ponteiroEstrutura, novoTam * sizeof(int));
         if (vetorPrincipal[indice].ponteiroEstrutura == NULL) {
             retorno = SEM_ESPACO_DE_MEMORIA;
+            free(vetorPrincipal[indice].ponteiroEstrutura);
             return retorno;
         }
         else {
