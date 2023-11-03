@@ -28,7 +28,7 @@ int main()
     testeListar();
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura();
-    //testeListaEncadeada();
+    testeListaEncadeada();
     finalizar();
 }
 int ligado = 1;
@@ -264,6 +264,12 @@ void testeListaEncadeada()
     show_log("testeListaEncadeada()");
     int vet[10];
     No *inicio = montarListaEncadeadaComCabecote();
+    // No *atual = inicio->prox;
+    // while (atual != NULL) {
+    //     printf("%d\n", atual->conteudo);
+    //     atual = atual->prox;
+    // }
+
     getDadosListaEncadeadaComCabecote(inicio, vet);
 
     printf("%d\n", vet[0] == 3);

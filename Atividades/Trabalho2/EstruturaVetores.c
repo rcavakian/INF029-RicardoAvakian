@@ -271,20 +271,18 @@ Rertono (int)
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
     int retorno = 0;
     int vazias = 0;
-    int j = 0;
     int k = 0;
     for (int i = 0; i < TAM; i++) {
         if (vetorPrincipal[i].quantidade == 0) {
             vazias++;
         }
         else {
-            for (j = 0; j < vetorPrincipal[i].quantidade; j++) {
+            for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
                 vetorAux[k] = vetorPrincipal[i].ponteiroEstrutura[j];
                 k++;
             }
         }
     }
-    printf("\nVazias: %d\n", vazias);
     if (vazias == TAM) {
         retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
         return retorno;
@@ -412,18 +410,78 @@ Retorno (No*)
     NULL, caso não tenha nenhum número nas listas
     No*, ponteiro para o início da lista com cabeçote
 */
-No *montarListaEncadeadaComCabecote()
-{
-
-    return NULL;
+No *montarListaEncadeadaComCabecote() {
+    int vazia = 0;
+    for (int i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i].quantidade == 0) {
+            vazia++;
+        }
+    }
+    if (vazia == TAM) {
+        return NULL;
+    }
+    else {
+        int k = 0;
+        No *cabecote = malloc(sizeof(No));
+        if (cabecote == NULL) {
+            return NULL;
+        }
+        cabecote->prox = NULL;
+        for (int i = 0; i < TAM; i++) {
+            // if incluido para testar
+            if (vetorPrincipal[i].ponteiroEstrutura == NULL) {
+                continue;
+            }
+            for (int j = 0; j < vetorPrincipal[i].quantidade; j++) {
+                inserirNodo(cabecote, vetorPrincipal[i].ponteiroEstrutura[j]);
+            }
+        }
+        return cabecote;
+    }
+    
 }
-
+/*
+Funções auxiliares para criar e encher a lista encadeada
+*/
+No *criarNodo(int valor) {
+    No *novo = malloc(sizeof(No));
+    if (novo == NULL) {
+        return NULL;
+    }
+    novo->conteudo = valor;
+    novo->prox = NULL;
+    return novo;
+}
+void inserirNodo(No *cabecote, int valor) {
+    No *atual;
+    No *novo = criarNodo(valor);
+    if (cabecote->prox == NULL) {
+        cabecote->prox = novo;
+        novo->prox = NULL;
+    }
+    else {
+        atual = cabecote;
+        while (atual->prox != NULL) {
+            atual = atual->prox;
+        }
+        atual->prox = novo;
+    }
+}
 /*
 Objetivo: retorna os números da lista enceada com cabeçote armazenando em vetorAux.
 Retorno void
 */
-void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
-{
+void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]) {
+    if (inicio == NULL) {
+        return;
+    }
+    No *atual = inicio->prox;
+    int i = 0;
+    while (atual != NULL) {
+        vetorAux[i] = atual->conteudo;
+        atual = atual->prox;
+        i++;
+    }
 }
 
 /*
@@ -433,8 +491,12 @@ O ponteiro inicio deve ficar com NULL.
 Retorno 
     void.
 */
-void destruirListaEncadeadaComCabecote(No **inicio)
-{
+void destruirListaEncadeadaComCabecote(No **inicio) {
+    while(*inicio != NULL) {
+        No *temporario = *inicio;
+        *inicio = (*inicio)->prox;
+        free(temporario);
+    }
 }
 
 /*
